@@ -15,5 +15,7 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String breed;
+    private String species;
     private String photo;
 }

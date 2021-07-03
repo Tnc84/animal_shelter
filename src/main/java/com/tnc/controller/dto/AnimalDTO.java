@@ -3,7 +3,6 @@ package com.tnc.controller.dto;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 
-import javax.servlet.annotation.HttpConstraint;
 import javax.validation.constraints.*;
 
 public record AnimalDTO(
@@ -17,7 +16,12 @@ public record AnimalDTO(
         String name,
         @NotBlank
         @NotNull
-        @HttpConstraint
+        String breed,
+        @NotBlank
+        @NotNull
+        String species,
+        @NotBlank
+        @NotNull
         String photo
 ) {
 }

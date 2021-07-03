@@ -3,13 +3,17 @@ package com.tnc.service.animalService;
 import com.tnc.repository.animalRepository.AnimalRepository;
 import com.tnc.service.mapper.AnimalDomainMapper;
 import com.tnc.service.model.AnimalDomain;
+import com.tnc.service.validation.OnCreate;
+import com.tnc.service.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Validated
 public class AnimalAnimalServiceImpl implements AnimalService {
 
     private final AnimalRepository animalRepository;
@@ -26,6 +30,7 @@ public class AnimalAnimalServiceImpl implements AnimalService {
         return animalDomainMapper.toDomainList(animalRepository.findAll());
     }
 
+    @Validated(OnCreate.class)
     @Override
     public AnimalDomain add(AnimalDomain animalDomain) {
         var addAnimal = animalDomainMapper.toRepository(animalDomain);
@@ -33,6 +38,7 @@ public class AnimalAnimalServiceImpl implements AnimalService {
         return animalDomain;
     }
 
+    @Validated(OnUpdate.class)
     @Override
     public AnimalDomain update(AnimalDomain animalDomain) {
         return animalDomainMapper.toDomain(animalRepository.save(animalDomainMapper.toRepository(animalDomain)));

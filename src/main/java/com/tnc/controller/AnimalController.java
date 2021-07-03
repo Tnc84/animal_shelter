@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,13 +31,13 @@ public class AnimalController {
     }
 
     @PostMapping
-    public ResponseEntity<AnimalDTO>create(@RequestBody AnimalDTO animalDTO){
+    public ResponseEntity<AnimalDTO>create(@Valid @RequestBody AnimalDTO animalDTO){
         var getOne = animalService.add(animalDTOMapper.toDomain(animalDTO));
         return ResponseEntity.ok(animalDTO);
     }
 
     @PutMapping
-    public ResponseEntity<AnimalDTO>update(@RequestBody AnimalDTO animalDTO){
+    public ResponseEntity<AnimalDTO>update(@Valid @RequestBody AnimalDTO animalDTO){
         var updateAnimal = animalService.update(animalDTOMapper.toDomain(animalDTO));
         return ResponseEntity.ok(animalDTOMapper.toDTO(updateAnimal));
     }

@@ -2,7 +2,6 @@ package com.tnc.controller;
 
 import com.tnc.controller.DTOMapper.AnimalDTOMapper;
 import com.tnc.controller.dto.AnimalDTO;
-import com.tnc.repository.animalRepository.Animal;
 import com.tnc.service.animalService.AnimalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

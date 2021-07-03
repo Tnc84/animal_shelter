@@ -1,4 +1,4 @@
-package com.tnc.repository.animalRepository;
+package com.tnc.repository.animal;
 
 
 import lombok.Data;

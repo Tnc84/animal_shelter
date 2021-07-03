@@ -1,12 +1,13 @@
 package com.tnc.service.mapper;
 
-import com.tnc.repository.animalRepository.Animal;
+import com.tnc.repository.animal.Animal;
 import com.tnc.service.model.AnimalDomain;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@org.mapstruct.Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface AnimalDomainMapper {
 
     @Mapping(source = "id", target = "id")
@@ -20,5 +21,4 @@ public interface AnimalDomainMapper {
 
     @Mapping(source = "id", target = "id")
     List<AnimalDomain> toDomainList(List<Animal> animal);
-
 }

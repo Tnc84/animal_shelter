@@ -1,4 +1,4 @@
-package com.tnc.repository.animalRepository;
+package com.tnc.repository.animal;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

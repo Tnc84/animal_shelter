@@ -9,7 +9,10 @@ import java.util.List;
 public interface AnimalService {
 
     AnimalDomain get(Long id);
+
     List<AnimalDomain> getAll();
+
     AnimalDomain add(AnimalDomain animalDomain);
+
     AnimalDomain update(AnimalDomain animalDomain);
 }

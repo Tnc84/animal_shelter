@@ -1,12 +1,10 @@
 package com.tnc.repository.animal;
 
 
+import com.tnc.repository.shelter.Shelter;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -18,4 +16,7 @@ public class Animal {
     private String breed;
     private String species;
     private String photo;
+
+    @ManyToOne
+    private Shelter shelter;
 }

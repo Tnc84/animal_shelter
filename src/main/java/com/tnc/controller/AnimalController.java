@@ -31,7 +31,7 @@ public class AnimalController {
 
     @PostMapping
     public ResponseEntity<AnimalDTO>create(@RequestBody AnimalDTO animalDTO){
-        var getOne = animalDTOMapper.toDomain(animalDTO);
+        var getOne = animalService.add(animalDTOMapper.toDomain(animalDTO));
         return ResponseEntity.ok(animalDTO);
     }
 

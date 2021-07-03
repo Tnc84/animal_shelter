@@ -1,4 +1,4 @@
-package com.tnc.repository.entity;
+package com.tnc.repository.animalRepository;
 
 
 import lombok.Data;
@@ -13,8 +13,7 @@ import javax.persistence.Id;
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+    private Long id;
     private String name;
     private String photo;
 }

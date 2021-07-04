@@ -24,8 +24,8 @@ public record AnimalDTO(
         @NotBlank
         @NotNull
         String photo,
-        @NotNull
-        @NotBlank
+//        @NotNull
+//        @NotBlank
         Shelter shelter
 ) {
 }

@@ -8,6 +8,6 @@ public record AnimalDomain(
         String breed,
         String species,
         String photo,
-        Shelter shelter
+        ShelterDomain shelter
 ) {
 }

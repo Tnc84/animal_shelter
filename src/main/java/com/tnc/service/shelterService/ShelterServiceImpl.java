@@ -27,7 +27,8 @@ public class ShelterServiceImpl implements ShelterService {
 
     @Override
     public ShelterDomain add(ShelterDomain shelterDomain) {
-        return shelterDomainMapper.toDomain(shelterDomainMapper.toShelter(shelterDomain));
+        var addShelter = shelterDomainMapper.toShelter(shelterDomain);
+        return shelterDomainMapper.toDomain(shelterRepository.save(addShelter));
     }
 
     @Override

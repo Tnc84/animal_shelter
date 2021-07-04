@@ -10,6 +10,6 @@ public record ShelterDomain(
         Long id,
         String name,
         String address,
-        List<Animal> animalList
+        List<AnimalDomain> animalDomainListList
 ) {
 }

@@ -30,9 +30,10 @@ public class AnimalController {
     }
 
     @PostMapping
-    public ResponseEntity<AnimalDTO>create(@Valid @RequestBody AnimalDTO animalDTO){
-        var getOne = animalService.add(animalDTOMapper.toDomain(animalDTO));
-        return ResponseEntity.ok(animalDTO);
+    public ResponseEntity<AnimalDTO>add(@Valid @RequestBody AnimalDTO animalDTO){
+        var addOne = animalService.add(animalDTOMapper.toDomain(animalDTO));
+//        var getOne = animalService.add(animalDTOMapper.toDomain(animalDTO));
+        return ResponseEntity.ok(animalDTOMapper.toDTO(addOne));
     }
 
     @PutMapping

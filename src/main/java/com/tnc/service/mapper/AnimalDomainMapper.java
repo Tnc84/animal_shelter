@@ -11,10 +11,10 @@ import java.util.List;
 public interface AnimalDomainMapper {
 
     @Mapping(source = "id", target = "id")
-    Animal toRepository(AnimalDomain animalDomain);
+    Animal toAnimal(AnimalDomain animalDomain);
 
     @Mapping(source = "id", target = "id")
-    List<Animal> toRepositoryList(List<AnimalDomain> animalDomainList);
+    List<Animal> toAnimalList(List<AnimalDomain> animalDomainList);
 
     @Mapping(source = "id", target = "id")
     AnimalDomain toDomain(Animal animal);

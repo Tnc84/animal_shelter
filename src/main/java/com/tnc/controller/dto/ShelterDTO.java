@@ -20,5 +20,6 @@ public record ShelterDTO(
         String address,
         @NotNull
         @NotBlank
-        List<Animal> animalList) {
+        List<AnimalDTO> animalDTOListList
+) {
 }

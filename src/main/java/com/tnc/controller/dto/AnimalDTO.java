@@ -1,6 +1,5 @@
 package com.tnc.controller.dto;
 
-import com.tnc.repository.shelter.Shelter;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 
@@ -26,6 +25,6 @@ public record AnimalDTO(
         String photo,
 //        @NotNull
 //        @NotBlank
-        Shelter shelter
+        ShelterDTO shelterDTO
 ) {
 }

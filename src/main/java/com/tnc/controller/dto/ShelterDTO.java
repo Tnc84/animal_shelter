@@ -1,6 +1,5 @@
 package com.tnc.controller.dto;
 
-import com.tnc.repository.animal.Animal;
 import com.tnc.service.validation.OnCreate;
 
 import javax.validation.constraints.*;

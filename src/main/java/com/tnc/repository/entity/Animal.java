@@ -16,6 +16,4 @@ public class Animal {
     private String species;
     private String photo;
 
-    @ManyToOne
-    private Shelter shelter;
 }

@@ -5,7 +5,7 @@ public record AnimalDomain(
         String name,
         String breed,
         String species,
-        String photo,
-        ShelterDomain shelterDomain
+        String photo
+//        ShelterDomain shelterDomain
 ) {
 }

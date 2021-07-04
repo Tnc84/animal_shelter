@@ -17,8 +17,8 @@ public record ShelterDTO(
         @NotNull
         @NotBlank
         String address,
-        @NotNull
-        @NotBlank
-        List<AnimalDTO> animalDTOListList
+//        @NotNull
+//        @NotBlank
+        List<AnimalDTO> animals
 ) {
 }

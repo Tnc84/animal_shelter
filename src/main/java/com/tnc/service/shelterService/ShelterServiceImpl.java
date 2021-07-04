@@ -1,6 +1,6 @@
 package com.tnc.service.shelterService;
 
-import com.tnc.repository.shelter.ShelterRepository;
+import com.tnc.repository.iRepository.ShelterRepository;
 import com.tnc.service.mapper.ShelterDomainMapper;
 import com.tnc.service.model.ShelterDomain;
 import lombok.RequiredArgsConstructor;

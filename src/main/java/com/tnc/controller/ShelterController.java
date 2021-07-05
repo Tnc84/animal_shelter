@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,12 +29,12 @@ public class ShelterController {
     }
 
     @PostMapping
-    public ResponseEntity<ShelterDTO>add(@RequestBody ShelterDTO shelterDTO){
+    public ResponseEntity<ShelterDTO>add(@Valid @RequestBody ShelterDTO shelterDTO){
         return ResponseEntity.ok(shelterDTOMapper.toDTO(shelterService.add(shelterDTOMapper.toDomain(shelterDTO))));
     }
 
     @PutMapping
-    public ResponseEntity<ShelterDTO>update(@RequestBody ShelterDTO shelterDTO){
+    public ResponseEntity<ShelterDTO>update(@Valid @RequestBody ShelterDTO shelterDTO){
         return ResponseEntity.ok(shelterDTOMapper.toDTO(shelterService.add(shelterDTOMapper.toDomain(shelterDTO))));
     }
 

@@ -1,4 +1,4 @@
-package com.tnc.service.animalService;
+package com.tnc.service.service;
 
 import com.tnc.service.model.AnimalDomain;
 import org.springframework.stereotype.Service;

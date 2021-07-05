@@ -1,8 +1,9 @@
-package com.tnc.service.shelterService;
+package com.tnc.service.serviceImpl;
 
 import com.tnc.repository.iRepository.ShelterRepository;
 import com.tnc.service.mapper.ShelterDomainMapper;
 import com.tnc.service.model.ShelterDomain;
+import com.tnc.service.service.ShelterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

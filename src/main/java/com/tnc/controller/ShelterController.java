@@ -2,7 +2,7 @@ package com.tnc.controller;
 
 import com.tnc.controller.DTOMapper.ShelterDTOMapper;
 import com.tnc.controller.dto.ShelterDTO;
-import com.tnc.service.shelterService.ShelterService;
+import com.tnc.service.service.ShelterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

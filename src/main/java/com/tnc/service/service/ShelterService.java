@@ -1,4 +1,4 @@
-package com.tnc.service.shelterService;
+package com.tnc.service.service;
 
 import com.tnc.service.model.ShelterDomain;
 import org.springframework.stereotype.Service;

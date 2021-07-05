@@ -1,8 +1,9 @@
-package com.tnc.service.animalService;
+package com.tnc.service.serviceImpl;
 
 import com.tnc.repository.iRepository.AnimalRepository;
 import com.tnc.service.mapper.AnimalDomainMapper;
 import com.tnc.service.model.AnimalDomain;
+import com.tnc.service.service.AnimalService;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;

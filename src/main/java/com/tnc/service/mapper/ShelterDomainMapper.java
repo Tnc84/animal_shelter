@@ -8,9 +8,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ShelterDomainMapper {
-    Shelter toShelter(ShelterDomain shelterDomain);
+    Shelter toEntity(ShelterDomain shelterDomain);
 
-    List<Shelter> toShelterList(List<ShelterDomain> shelterDomainList);
+    List<Shelter> toEntity(List<ShelterDomain> shelterDomainList);
 
     ShelterDomain toDomain(Shelter shelter);
 

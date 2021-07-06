@@ -28,12 +28,12 @@ public class ShelterServiceImpl implements ShelterService {
 
     @Override
     public ShelterDomain add(ShelterDomain shelterDomain) {
-        var addShelter = shelterDomainMapper.toShelter(shelterDomain);
+        var addShelter = shelterDomainMapper.toEntity(shelterDomain);
         return shelterDomainMapper.toDomain(shelterRepository.save(addShelter));
     }
 
     @Override
     public ShelterDomain update(ShelterDomain shelterDomain) {
-        return shelterDomainMapper.toDomain(shelterDomainMapper.toShelter(shelterDomain));
+        return shelterDomainMapper.toDomain(shelterDomainMapper.toEntity(shelterDomain));
     }
 }

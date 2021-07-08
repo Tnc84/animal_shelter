@@ -29,8 +29,11 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public AnimalDomain add(AnimalDomain animalDomain) {
-        var addAnimal = animalDomainMapper.toEntity(animalDomain);
-        return animalDomainMapper.toDomain(animalRepository.save(addAnimal));
+//        var animal = animalDomainMapper.toEntity(animalDomain);
+//        return animalDomainMapper.toDomain(animal);
+
+//        var addAnimal = animalDomainMapper.toEntity(animalDomain);
+        return animalDomainMapper.toDomain(animalRepository.save(animalDomainMapper.toEntity(animalDomain)));
     }
 
     @Override

@@ -22,9 +22,9 @@ public record AnimalDTO(
         String species,
         @NotBlank
         @NotNull
-        String photo
-//        @NotNull
+        String photo,
+        @NotNull
 //        @NotBlank
-//        ShelterDTO shelter
+        ShelterDTO shelter
 ) {
 }

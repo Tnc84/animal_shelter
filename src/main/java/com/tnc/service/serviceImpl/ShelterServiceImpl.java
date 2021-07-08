@@ -23,7 +23,8 @@ public class ShelterServiceImpl implements ShelterService {
 
     @Override
     public List<ShelterDomain> getAll() {
-        return shelterDomainMapper.toDomainList(shelterRepository.findAll());
+        var getAll = shelterDomainMapper.toDomainList(shelterRepository.findAll());
+        return getAll;
     }
 
     @Override

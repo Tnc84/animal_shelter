@@ -4,7 +4,6 @@ import com.tnc.repository.iRepository.AnimalRepository;
 import com.tnc.service.mapper.AnimalDomainMapper;
 import com.tnc.service.model.AnimalDomain;
 import com.tnc.service.service.AnimalService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnimalServiceImpl implements AnimalService {
 
-    private AnimalRepository animalRepository;
-    private AnimalDomainMapper animalDomainMapper;
-
-    public AnimalServiceImpl(AnimalRepository animalRepository) {
-        this.animalRepository = animalRepository;
-    }
+    private final AnimalRepository animalRepository;
+    private final AnimalDomainMapper animalDomainMapper;
 
     @Override
     public AnimalDomain get(Long id) {

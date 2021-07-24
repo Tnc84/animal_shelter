@@ -2,10 +2,12 @@ package com.tnc.controller;
 
 import com.tnc.controller.DTOMapper.ShelterDTOMapper;
 import com.tnc.controller.dto.ShelterDTO;
+import com.tnc.exceptions.ApiRequestException;
 import com.tnc.service.service.ShelterService;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.bridge.IMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,11 @@ public class ShelterController {
     @GetMapping
     public ResponseEntity<List<ShelterDTO>> getAll(){
         return ResponseEntity.ok(shelterDTOMapper.toDTOList(shelterService.getAll()));
+    }
+
+    @GetMapping("/getException")
+    public ResponseEntity<List<ShelterDTO>> getError(){
+        throw new ApiRequestException("Custom Exception from controller");
     }
 
     @PostMapping

@@ -1,9 +1,9 @@
-package com.tnc.service.serviceImpl;
+package com.tnc.service.impl;
 
-import com.tnc.repository.iRepository.AnimalRepository;
+import com.tnc.repository.entity.AnimalRepository;
 import com.tnc.service.mapper.AnimalDomainMapper;
 import com.tnc.service.model.AnimalDomain;
-import com.tnc.service.service.AnimalService;
+import com.tnc.service.interfaces.AnimalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

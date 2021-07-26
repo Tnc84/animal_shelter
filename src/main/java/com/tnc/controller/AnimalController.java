@@ -1,8 +1,8 @@
 package com.tnc.controller;
 
-import com.tnc.controller.DTOMapper.AnimalDTOMapper;
+import com.tnc.controller.mapper.AnimalDTOMapper;
 import com.tnc.controller.dto.AnimalDTO;
-import com.tnc.service.service.AnimalService;
+import com.tnc.service.interfaces.AnimalService;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;

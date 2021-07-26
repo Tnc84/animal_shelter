@@ -1,4 +1,4 @@
-package com.tnc.repository.iRepository;
+package com.tnc.repository.entity;
 
 import com.tnc.repository.entity.Shelter;
 import org.springframework.data.jpa.repository.JpaRepository;

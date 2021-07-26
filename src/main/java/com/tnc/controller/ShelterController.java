@@ -1,13 +1,12 @@
 package com.tnc.controller;
 
-import com.tnc.controller.DTOMapper.ShelterDTOMapper;
+import com.tnc.controller.mapper.ShelterDTOMapper;
 import com.tnc.controller.dto.ShelterDTO;
 import com.tnc.exceptions.ApiRequestException;
-import com.tnc.service.service.ShelterService;
+import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.bridge.IMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

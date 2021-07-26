@@ -1,4 +1,4 @@
-package com.tnc.controller.DTOMapper;
+package com.tnc.controller.mapper;
 
 import com.tnc.controller.dto.ShelterDTO;
 import com.tnc.service.model.ShelterDomain;

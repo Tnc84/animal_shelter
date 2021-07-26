@@ -2,8 +2,8 @@ package com.tnc.service.model;
 
 public record UserDomain(
         Long id,
-        String name,
-        String address,
+        String firstName,
+        String lastName,
         String email,
         String phone
 ) {

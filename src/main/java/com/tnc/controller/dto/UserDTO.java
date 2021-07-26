@@ -16,11 +16,11 @@ public record UserDTO(
         @NotNull
         @NotBlank
         @Size(min = 3, max = 50, message = "This field must have between 3 and 50 chars")
-        String name,
+        String firstName,
         @NotNull
         @NotBlank
         @Size(min = 3, max = 50, message = "This field must have between 3 and 50 chars")
-        String address,
+        String lastName,
         @NotNull
         @NotBlank
         @Email

@@ -1,6 +1,5 @@
 package com.tnc.service.impl;
 
-import com.tnc.exceptions.ApiException;
 import com.tnc.repository.shelter.ShelterRepository;
 import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.mapper.ShelterDomainMapper;
@@ -29,7 +28,7 @@ public class ShelterServiceImpl implements ShelterService {
     }
 
     @Override
-    public ShelterDomain add(ShelterDomain shelterDomain) throws ApiException {
+    public ShelterDomain add(ShelterDomain shelterDomain) {
 
 
             ValidateShelter.validateShelter(shelterDomain);

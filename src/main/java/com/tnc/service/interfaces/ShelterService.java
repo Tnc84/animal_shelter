@@ -1,6 +1,5 @@
 package com.tnc.service.interfaces;
 
-import com.tnc.exceptions.ApiException;
 import com.tnc.service.model.ShelterDomain;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ public interface ShelterService {
 
     List<ShelterDomain> getAll();
 
-    ShelterDomain add(ShelterDomain shelterDomain) throws ApiException;
+    ShelterDomain add(ShelterDomain shelterDomain);
 
     ShelterDomain update(ShelterDomain shelterDomain);
 }

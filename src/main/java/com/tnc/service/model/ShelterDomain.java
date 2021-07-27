@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class ShelterDomain{
-        Long id;
-        String name;
-        String address;
-        List<AnimalDomain> animals = new ArrayList<>();
+       private Long id;
+       private String name;
+       private String city;
+       private List<AnimalDomain> animals = new ArrayList<>();
 
 }

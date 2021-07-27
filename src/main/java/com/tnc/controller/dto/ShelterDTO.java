@@ -1,6 +1,7 @@
 package com.tnc.controller.dto;
 
 import com.tnc.service.validation.OnCreate;
+import com.tnc.service.validation.OnUpdate;
 import lombok.Data;
 
 import javax.validation.constraints.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Data
 public class ShelterDTO{
-        @NotNull(message = "Id must not be null", groups = OnCreate.class)
+        @NotNull(message = "Id must not be null", groups = OnUpdate.class)
         @Null(message = "Id must be null", groups = OnCreate.class)
         @Positive
         Long id;
@@ -19,7 +20,7 @@ public class ShelterDTO{
         String name;
         @NotNull
         @NotBlank
-        String address;
+        String city;
         @NotNull
 //        @NotBlank
         List<AnimalDTO> animals = new ArrayList<>();

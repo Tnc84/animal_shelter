@@ -2,6 +2,7 @@ package com.tnc.controller;
 
 import com.tnc.controller.mapper.ShelterDTOMapper;
 import com.tnc.controller.dto.ShelterDTO;
+import com.tnc.exceptions.ApiException;
 import com.tnc.exceptions.ApiRequestException;
 import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.validation.OnCreate;
@@ -40,13 +41,13 @@ public class ShelterController {
 
     @PostMapping
     @Validated(OnCreate.class)
-    public ResponseEntity<ShelterDTO>add(@Valid @RequestBody ShelterDTO shelterDTO){
+    public ResponseEntity<ShelterDTO>add(@Valid @RequestBody ShelterDTO shelterDTO) throws ApiException {
         return ResponseEntity.ok(shelterDTOMapper.toDTO(shelterService.add(shelterDTOMapper.toDomain(shelterDTO))));
     }
 
     @PutMapping
     @Validated(OnUpdate.class)
-    public ResponseEntity<ShelterDTO>update(@Valid @RequestBody ShelterDTO shelterDTO){
+    public ResponseEntity<ShelterDTO>update(@Valid @RequestBody ShelterDTO shelterDTO) throws ApiException {
         return ResponseEntity.ok(shelterDTOMapper.toDTO(shelterService.add(shelterDTOMapper.toDomain(shelterDTO))));
     }
 

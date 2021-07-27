@@ -1,9 +1,11 @@
 package com.tnc.service.impl;
 
+import com.tnc.exceptions.ApiException;
 import com.tnc.repository.shelter.ShelterRepository;
 import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.mapper.ShelterDomainMapper;
 import com.tnc.service.model.ShelterDomain;
+import com.tnc.service.validation.ValidateShelter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,12 @@ public class ShelterServiceImpl implements ShelterService {
     }
 
     @Override
-    public ShelterDomain add(ShelterDomain shelterDomain) {
+    public ShelterDomain add(ShelterDomain shelterDomain) throws ApiException {
+
+
+            ValidateShelter.validateShelter(shelterDomain);
+
+
         var addShelter = shelterDomainMapper.toEntity(shelterDomain);
         return shelterDomainMapper.toDomain(shelterRepository.save(addShelter));
     }

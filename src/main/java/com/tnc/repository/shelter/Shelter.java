@@ -16,7 +16,7 @@ public class Shelter {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String name;
-    private String address;
+    private String city;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shelter_id")

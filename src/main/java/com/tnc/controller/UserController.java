@@ -1,0 +1,49 @@
+package com.tnc.controller;
+
+import com.tnc.controller.dto.ShelterDTO;
+import com.tnc.controller.dto.UserDTO;
+import com.tnc.controller.mapper.UserDTOMapper;
+import com.tnc.exceptions.ApiRequestException;
+import com.tnc.repository.entity.User;
+import com.tnc.service.interfaces.UserService;
+import com.tnc.service.validation.OnCreate;
+import com.tnc.service.validation.OnUpdate;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@RestController
+@RequestMapping("/users")
+@AllArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+    private final UserDTOMapper userDTOMapper;
+
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDTO>get(@PathVariable Long id){
+        return ResponseEntity.ok(userDTOMapper.toDTO(userService.get(id)));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAll(){
+        return ResponseEntity.ok(userDTOMapper.toDTOList(userService.getAll()));
+    }
+
+    @PostMapping
+    @Validated(OnCreate.class)
+    public ResponseEntity<UserDTO>add(@Valid @RequestBody UserDTO userDTO){
+        return ResponseEntity.ok(userDTOMapper.toDTO(userService.add(userDTOMapper.toDomain(userDTO))));
+    }
+
+    @PutMapping
+    @Validated(OnUpdate.class)
+    public ResponseEntity<UserDTO>update(@Valid @RequestBody UserDTO userDTO){
+        return ResponseEntity.ok(userDTOMapper.toDTO(userService.add(userDTOMapper.toDomain(userDTO))));
+    }
+}

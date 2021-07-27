@@ -8,6 +8,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ShelterDTOMapper {
+
     ShelterDomain toDomain(ShelterDTO shelterDTO);
 
     List<ShelterDomain> toDomainList(List<ShelterDTO> shelterDTOList);

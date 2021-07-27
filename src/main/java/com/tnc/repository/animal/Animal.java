@@ -1,21 +1,20 @@
-package com.tnc.repository.entity;
+package com.tnc.repository.animal;
 
 
+import com.tnc.repository.shelter.Shelter;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
 public class Animal {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String breed;
     private String species;
     private String photo;
-//    @ManyToOne
-//    private Shelter shelter;
-
 }

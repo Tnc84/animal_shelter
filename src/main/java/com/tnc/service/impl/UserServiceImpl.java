@@ -1,9 +1,8 @@
 package com.tnc.service.impl;
 
-import com.tnc.repository.entity.UserRepository;
+import com.tnc.repository.user.UserRepository;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.mapper.UserDomainMapper;
-import com.tnc.service.mapper.UserDomainMapperImpl;
 import com.tnc.service.model.UserDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

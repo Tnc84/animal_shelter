@@ -1,4 +1,4 @@
-package com.tnc.repository.entity;
+package com.tnc.repository.user;
 
 import lombok.Data;
 

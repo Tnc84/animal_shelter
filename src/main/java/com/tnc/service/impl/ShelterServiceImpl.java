@@ -1,9 +1,9 @@
 package com.tnc.service.impl;
 
-import com.tnc.repository.entity.ShelterRepository;
+import com.tnc.repository.shelter.ShelterRepository;
+import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.mapper.ShelterDomainMapper;
 import com.tnc.service.model.ShelterDomain;
-import com.tnc.service.interfaces.ShelterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,7 @@ public class ShelterServiceImpl implements ShelterService {
 
     @Override
     public List<ShelterDomain> getAll() {
-        var getAll = shelterDomainMapper.toDomainList(shelterRepository.findAll());
-        return getAll;
+        return shelterDomainMapper.toDomainList(shelterRepository.findAll());
     }
 
     @Override

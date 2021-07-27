@@ -1,6 +1,6 @@
 package com.tnc.service.mapper;
 
-import com.tnc.repository.entity.Shelter;
+import com.tnc.repository.shelter.Shelter;
 import com.tnc.service.model.ShelterDomain;
 import org.mapstruct.Mapper;
 

@@ -1,11 +1,16 @@
 package com.tnc.service.model;
 
-public record AnimalDomain(
-        Long id,
-        String name,
-        String breed,
-        String species,
-        String photo,
-        ShelterDomain shelterDomain
-) {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AnimalDomain {
+    Long id;
+    String name;
+    String breed;
+    String species;
+    String photo;
 }

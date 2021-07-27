@@ -1,10 +1,7 @@
 package com.tnc.controller;
 
-import com.tnc.controller.dto.ShelterDTO;
 import com.tnc.controller.dto.UserDTO;
 import com.tnc.controller.mapper.UserDTOMapper;
-import com.tnc.exceptions.ApiRequestException;
-import com.tnc.repository.entity.User;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;

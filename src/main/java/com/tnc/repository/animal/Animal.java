@@ -1,7 +1,6 @@
 package com.tnc.repository.animal;
 
 
-import com.tnc.repository.shelter.Shelter;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -1,8 +1,7 @@
-package com.tnc.repository.shelter;
+package com.tnc.repository.entities;
 
-import com.tnc.repository.animal.Animal;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Accessors(chain = true)
 public class Shelter {
 
     @Id

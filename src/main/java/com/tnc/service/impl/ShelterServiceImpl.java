@@ -1,6 +1,6 @@
 package com.tnc.service.impl;
 
-import com.tnc.repository.shelter.ShelterRepository;
+import com.tnc.repository.repositories.ShelterRepository;
 import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.mapper.ShelterDomainMapper;
 import com.tnc.service.model.ShelterDomain;

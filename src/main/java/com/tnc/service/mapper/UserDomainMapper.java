@@ -1,6 +1,6 @@
 package com.tnc.service.mapper;
 
-import com.tnc.repository.user.User;
+import com.tnc.repository.entities.User;
 import com.tnc.service.model.UserDomain;
 import org.mapstruct.Mapper;
 

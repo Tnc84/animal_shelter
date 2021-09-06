@@ -1,6 +1,6 @@
-package com.tnc.repository.shelter;
+package com.tnc.repository.repositories;
 
-import com.tnc.repository.shelter.Shelter;
+import com.tnc.repository.entities.Shelter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

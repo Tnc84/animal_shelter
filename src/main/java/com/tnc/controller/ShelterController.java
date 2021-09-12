@@ -7,16 +7,18 @@ import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@RequestMapping(value = "/shelters")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/shelters")
 @Validated
+@PreAuthorize("isAuthenticated() && hasRole('MOD')")
 public class ShelterController {
 
     private final ShelterService shelterService;

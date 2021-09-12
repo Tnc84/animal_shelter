@@ -38,8 +38,8 @@ public class UserDetailService implements UserDetailsService {
             final String defaultEmail = "user";
             final String defaultPassword = "password";
 
-            Role moderatorRole = roleRepository.findByRole(RoleEnum.ROLE_MOD).orElseGet(() -> {
-                Role role = new Role().setRole(RoleEnum.ROLE_MOD);
+            Role moderatorRole = roleRepository.findByRole(RoleEnum.ROLE_USER).orElseGet(() -> {
+                Role role = new Role().setRole(RoleEnum.ROLE_USER);
                 return roleRepository.save(role);
             });
 

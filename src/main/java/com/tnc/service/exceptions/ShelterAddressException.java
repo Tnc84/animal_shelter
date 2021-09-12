@@ -1,4 +1,4 @@
-package com.tnc.exceptions;
+package com.tnc.service.exceptions;
 
 public class ShelterAddressException extends RuntimeException {
 

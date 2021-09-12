@@ -1,4 +1,4 @@
-package com.tnc.exceptions;
+package com.tnc.service.exceptions;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +35,26 @@ public class ExceptionsHandlerAdvice extends ResponseEntityExceptionHandler {
             apiError.getViolations().add(new Violation(violation.getPropertyPath().toString(), violation.getMessage(), violation.getInvalidValue().toString()));
         }
         return apiError;
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>(new ApiError(HttpStatus.CONFLICT, ex.getMessage()), status);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseBody
+    ApiError onValidationException(ValidationException ex) {
+        return ex.getApiError();
+    }
+
+
+    @ExceptionHandler(ShelterLocationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ApiError onShelterLocationException(ShelterLocationException ex) {
+        return new ApiError(HttpStatus.EXPECTATION_FAILED, ex.getMessage());
     }
 
     @ExceptionHandler(ShelterAddressException.class)

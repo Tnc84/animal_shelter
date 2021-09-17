@@ -6,8 +6,8 @@ import com.tnc.service.exceptions.Violation;
 import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.mapper.ShelterDomainMapper;
 import com.tnc.service.model.ShelterDomain;
-import com.tnc.service.validation.ValidateShelter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class ShelterServiceImpl implements ShelterService {
 
-    private ShelterRepository shelterRepository;
-    private ShelterDomainMapper shelterDomainMapper;
+    private final ShelterRepository shelterRepository;
+    private final ShelterDomainMapper shelterDomainMapper;
 
-    public ShelterServiceImpl(ShelterRepository shelterRepository) {
-        this.shelterRepository = shelterRepository;
-    }
+//    public ShelterServiceImpl(ShelterRepository shelterRepository) {
+//        this.shelterRepository = shelterRepository;
+//    }
 
     @Override
     public ShelterDomain get(Long id) {
@@ -48,7 +48,7 @@ public class ShelterServiceImpl implements ShelterService {
     }
 
     public void validateShelter(ShelterDomain shelterDomain) {
-        if (!shelterDomain.getCity().toLowerCase(Locale.ROOT).contains("iasi")){
+        if (!shelterDomain.getCity().toLowerCase(Locale.ROOT).contains("iasi")) {
             throw new ShelterAddressException(new Violation("message", "The shelter is not from Iasi", shelterDomain.getCity()));
         }
     }

@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 @Data
 @Accessors(chain = true)
 public class Role {
@@ -13,7 +13,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     private RoleEnum role;
 
 }

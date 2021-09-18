@@ -17,12 +17,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-@PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
+//@PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
 public class UserController {
 
     private final UserService userService;
     private final UserDTOMapper userDTOMapper;
 
+    @GetMapping("/home")
+    public String showUser(){
+        return "Application works";
+    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO>get(@PathVariable Long id){

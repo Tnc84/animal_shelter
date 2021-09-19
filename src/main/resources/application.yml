@@ -4,6 +4,9 @@ jwt:
 
 server:
   port : 8090
+#  error:
+#    whitelabel:
+#      enabled: false
 
 spring:
   datasource:

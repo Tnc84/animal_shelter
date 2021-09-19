@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(path = {"/", "/users"})
 @AllArgsConstructor
 //@PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
 public class UserController extends ExceptionHandling {

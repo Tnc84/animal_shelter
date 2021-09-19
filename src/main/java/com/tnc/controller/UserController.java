@@ -2,6 +2,8 @@ package com.tnc.controller;
 
 import com.tnc.controller.dto.UserDTO;
 import com.tnc.controller.mapper.UserDTOMapper;
+import com.tnc.service.exceptionsJWT.domain.EmailExistException;
+import com.tnc.service.exceptionsJWT.domain.ExceptionHandling;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
@@ -18,14 +20,15 @@ import java.util.List;
 @RequestMapping("/users")
 @AllArgsConstructor
 //@PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
-public class UserController {
+public class UserController extends ExceptionHandling {
 
     private final UserService userService;
     private final UserDTOMapper userDTOMapper;
 
     @GetMapping("/home")
-    public String showUser(){
-        return "Application works";
+    public String showUser() throws EmailExistException{
+//        return "Application works";
+        throw new EmailExistException("This email address is already taken");
     }
 
     @GetMapping(value = "/{id}")

@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Getter
 @Setter
@@ -21,7 +22,7 @@ public class HttpResponse {
     private String message;
 
     public HttpResponse(int httpStatusCode, HttpStatus httpStatus, String reason, String message) {
-        this.timeStamp = new Date(System.currentTimeMillis());
+        this.timeStamp = new Date(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(-3));
         this.httpStatusCode = httpStatusCode;
         this.httpStatus = httpStatus;
         this.reason = reason;

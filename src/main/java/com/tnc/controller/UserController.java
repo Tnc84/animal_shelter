@@ -27,8 +27,8 @@ public class UserController extends ExceptionHandling {
 
     @GetMapping("/home")
     public String showUser() throws EmailExistException{
-//        return "Application works";
-        throw new EmailExistException("This email address is already taken");
+        return "Application works";
+//        throw new EmailExistException("This email address is already taken");
     }
 
     @GetMapping(value = "/{id}")

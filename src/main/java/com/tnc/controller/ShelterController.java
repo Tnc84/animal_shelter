@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Validated
-@PreAuthorize("isAuthenticated() && hasRole('MOD')")
+//@PreAuthorize("isAuthenticated() && hasRole('MOD')")
 public class ShelterController {
 
     private final ShelterService shelterService;

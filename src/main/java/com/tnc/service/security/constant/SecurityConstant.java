@@ -1,4 +1,4 @@
-package com.tnc.service.securityWithJWT.constant;
+package com.tnc.service.security.constant;
 
 public class SecurityConstant {
     public static final long EXPIRATION_TIME = 432_000_000; // 5days in milliseconds

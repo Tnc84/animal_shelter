@@ -2,14 +2,13 @@ package com.tnc.controller;
 
 import com.tnc.controller.dto.UserDTO;
 import com.tnc.controller.mapper.UserDTOMapper;
-import com.tnc.service.exceptionsJWT.domain.EmailExistException;
-import com.tnc.service.exceptionsJWT.domain.ExceptionHandling;
+import com.tnc.service.exception.domain.EmailExistException;
+import com.tnc.service.exception.domain.ExceptionHandling;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

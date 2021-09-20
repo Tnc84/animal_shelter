@@ -1,4 +1,4 @@
-package com.tnc.service.exceptionsJWT.domain;
+package com.tnc.service.exception.domain;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.tnc.service.model.HttpResponse;

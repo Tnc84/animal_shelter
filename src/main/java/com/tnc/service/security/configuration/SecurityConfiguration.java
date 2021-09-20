@@ -1,9 +1,8 @@
-package com.tnc.service.securityWithJWT.configuration;
+package com.tnc.service.security.configuration;
 
-import com.tnc.service.securityWithJWT.constant.SecurityConstant;
-import com.tnc.service.securityWithJWT.filter.JwtAccessDeniedHandler;
-import com.tnc.service.securityWithJWT.filter.JwtAuthenticationEntryPoint;
-import com.tnc.service.securityWithJWT.filter.JwtAuthorizationFilter;
+import com.tnc.service.security.filter.JwtAccessDeniedHandler;
+import com.tnc.service.security.filter.JwtAuthenticationEntryPoint;
+import com.tnc.service.security.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +12,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.tnc.service.securityWithJWT.constant.SecurityConstant.*;
+import static com.tnc.service.security.constant.SecurityConstant.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.*;
 
 @Configuration

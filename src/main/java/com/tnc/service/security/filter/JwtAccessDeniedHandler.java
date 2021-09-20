@@ -1,4 +1,4 @@
-package com.tnc.service.securityWithJWT.filter;
+package com.tnc.service.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tnc.service.model.HttpResponse;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static com.tnc.service.securityWithJWT.constant.SecurityConstant.ACCESS_DENIED_MESSAGE;
+import static com.tnc.service.security.constant.SecurityConstant.ACCESS_DENIED_MESSAGE;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 

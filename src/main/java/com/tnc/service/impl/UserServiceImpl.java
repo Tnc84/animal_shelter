@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(getClass()); //this class
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
     private final UserRepository userRepository;
     private final UserDomainMapper userDomainMapper;
 

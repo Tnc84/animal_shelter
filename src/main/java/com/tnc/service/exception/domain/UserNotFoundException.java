@@ -1,4 +1,4 @@
-package com.tnc.service.exceptionsJWT.domain;
+package com.tnc.service.exception.domain;
 
 public class UserNotFoundException extends Exception{
     public UserNotFoundException(String message) {

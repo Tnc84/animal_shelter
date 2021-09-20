@@ -1,6 +1,6 @@
-package com.tnc.service.securityWithJWT.filter;
+package com.tnc.service.security.filter;
 
-import com.tnc.service.securityWithJWT.util.JWTTokenProvider;
+import com.tnc.service.security.util.JWTTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.tnc.service.securityWithJWT.constant.SecurityConstant.OPTIONS_HTTP_METHOD;
-import static com.tnc.service.securityWithJWT.constant.SecurityConstant.TOKEN_PREFIX;
+import static com.tnc.service.security.constant.SecurityConstant.OPTIONS_HTTP_METHOD;
+import static com.tnc.service.security.constant.SecurityConstant.TOKEN_PREFIX;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component

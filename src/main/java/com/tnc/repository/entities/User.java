@@ -16,6 +16,7 @@ import java.util.Set;
 @Data
 @Accessors(chain = true)
 public class User implements Serializable {
+
     @Positive(message = "Must be positive number")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +41,14 @@ public class User implements Serializable {
     private String phone;
     private String password;
     private String profileImageUrl;
+    private String username;
+    private Date lastLoginDate;
+    private Date lastLoginDateDisplay;
+    private Date joinDate;
+    private String[] roles;
+    private String[] authorities;
+    private boolean isActive;
+    private boolean isNotActive;
 
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name = "user_roles",
@@ -49,13 +58,5 @@ public class User implements Serializable {
 //                    referencedColumnName = "id"))
 //    private Set<Role> roles = new HashSet<>();
 ///for JWT
-    private String username;
-    private Date lastLoginDate;
-    private Date lastLoginDateDisplay;
-    private Date joinDate;
-    private String[] roles;
-    private String[] authorities;
-    private boolean isActive;
-    private boolean isNotActive;
 
 }

@@ -1,13 +1,11 @@
 package com.tnc.service.impl;
 
 import com.tnc.repository.repositories.ShelterRepository;
-import com.tnc.service.exceptions.ShelterAddressException;
-import com.tnc.service.exceptions.Violation;
+import com.tnc.service.exception.domain.ShelterAddressException;
 import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.mapper.ShelterDomainMapper;
 import com.tnc.service.model.ShelterDomain;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +17,6 @@ public class ShelterServiceImpl implements ShelterService {
 
     private final ShelterRepository shelterRepository;
     private final ShelterDomainMapper shelterDomainMapper;
-
-//    public ShelterServiceImpl(ShelterRepository shelterRepository) {
-//        this.shelterRepository = shelterRepository;
-//    }
 
     @Override
     public ShelterDomain get(Long id) {
@@ -37,7 +31,7 @@ public class ShelterServiceImpl implements ShelterService {
     @Override
     public ShelterDomain add(ShelterDomain shelterDomain) {
 //        ValidateShelter.validateShelter(shelterDomain);
-        validateShelter(shelterDomain);
+//        validateShelter(shelterDomain);
         var addShelter = shelterDomainMapper.toEntity(shelterDomain);
         return shelterDomainMapper.toDomain(shelterRepository.save(addShelter));
     }
@@ -47,9 +41,9 @@ public class ShelterServiceImpl implements ShelterService {
         return shelterDomainMapper.toDomain(shelterDomainMapper.toEntity(shelterDomain));
     }
 
-    public void validateShelter(ShelterDomain shelterDomain) {
+    public void validateShelter(ShelterDomain shelterDomain) throws Exception{
         if (!shelterDomain.getCity().toLowerCase(Locale.ROOT).contains("iasi")) {
-            throw new ShelterAddressException(new Violation("message", "The shelter is not from Iasi", shelterDomain.getCity()));
+            throw new ShelterAddressException("The shelter is not from Iasi");
         }
     }
 }

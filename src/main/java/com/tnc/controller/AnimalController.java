@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/animals")
 @Validated
-@PreAuthorize("isAuthenticated() && hasRole('USER')")
+//@PreAuthorize("isAuthenticated() && hasRole('USER')")
 public class AnimalController {
 
     private final AnimalService animalService;

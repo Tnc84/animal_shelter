@@ -1,4 +1,4 @@
-package com.tnc.service.securityWithJWT.util;
+package com.tnc.service.security.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.tnc.service.securityWithJWT.constant.SecurityConstant.*;
+import static com.tnc.service.security.constant.SecurityConstant.*;
 import static java.util.Arrays.stream;
 
 @Component

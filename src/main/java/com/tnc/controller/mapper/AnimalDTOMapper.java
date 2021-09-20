@@ -1,7 +1,7 @@
 package com.tnc.controller.mapper;
 
 import com.tnc.controller.dto.AnimalDTO;
-import com.tnc.service.model.AnimalDomain;
+import com.tnc.service.domain.AnimalDomain;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -1,7 +1,7 @@
 package com.tnc.service.mapper;
 
 import com.tnc.repository.entities.Animal;
-import com.tnc.service.model.AnimalDomain;
+import com.tnc.service.domain.AnimalDomain;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

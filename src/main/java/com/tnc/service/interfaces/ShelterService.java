@@ -1,6 +1,6 @@
 package com.tnc.service.interfaces;
 
-import com.tnc.service.model.ShelterDomain;
+import com.tnc.service.domain.ShelterDomain;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

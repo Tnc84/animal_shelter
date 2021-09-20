@@ -1,7 +1,7 @@
 package com.tnc.service.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tnc.service.model.HttpResponse;
+import com.tnc.service.domain.HttpResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package com.tnc.service.validation;
 
-import com.tnc.service.exception.domain.ShelterAddressException;
-import com.tnc.service.model.ShelterDomain;
+import com.tnc.service.exception.ShelterAddressException;
+import com.tnc.service.domain.ShelterDomain;
 import java.util.Locale;
 
 public class ValidateShelter {

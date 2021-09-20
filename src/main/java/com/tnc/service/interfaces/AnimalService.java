@@ -1,6 +1,6 @@
 package com.tnc.service.interfaces;
 
-import com.tnc.service.model.AnimalDomain;
+import com.tnc.service.domain.AnimalDomain;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;

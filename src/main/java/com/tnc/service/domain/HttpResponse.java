@@ -1,4 +1,4 @@
-package com.tnc.service.model;
+package com.tnc.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

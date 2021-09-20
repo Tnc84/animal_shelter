@@ -1,4 +1,4 @@
-package com.tnc.service.exception.domain;
+package com.tnc.service.exception;
 
 public class UsernameExistException extends Exception{
     public UsernameExistException(String message) {

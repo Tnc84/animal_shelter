@@ -1,10 +1,10 @@
 package com.tnc.service.impl;
 
 import com.tnc.repository.repositories.ShelterRepository;
-import com.tnc.service.exception.domain.ShelterAddressException;
+import com.tnc.service.exception.ShelterAddressException;
 import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.mapper.ShelterDomainMapper;
-import com.tnc.service.model.ShelterDomain;
+import com.tnc.service.domain.ShelterDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

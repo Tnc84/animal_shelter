@@ -1,7 +1,7 @@
-package com.tnc.service.exception.domain;
+package com.tnc.service.exception;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.tnc.service.model.HttpResponse;
+import com.tnc.service.domain.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;

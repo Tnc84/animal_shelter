@@ -1,7 +1,7 @@
 package com.tnc.service.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tnc.service.model.HttpResponse;
+import com.tnc.service.domain.HttpResponse;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

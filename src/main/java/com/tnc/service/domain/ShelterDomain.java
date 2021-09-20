@@ -1,8 +1,7 @@
-package com.tnc.service.model;
+package com.tnc.service.domain;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;

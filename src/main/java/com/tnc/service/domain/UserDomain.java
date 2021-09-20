@@ -1,12 +1,14 @@
-package com.tnc.service.model;
+package com.tnc.service.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDomain {
     private Long id;
     private String userId;
@@ -20,10 +22,10 @@ public class UserDomain {
     private Date lastLoginDate;
     private Date lastLoginDateDisplay;
     private Date joinDate;
-    private String[] roles;
+    private String role;
     private String[] authorities;
     private boolean isActive;
-    private boolean isNotActive;
+    private boolean isNotLocked;
 
 
 }

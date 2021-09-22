@@ -14,11 +14,11 @@ public class UserDomain {
     private String userId;
     private String firstName;
     private String lastName;
+    private String username;
     private String email;
     private String phone;
     private String password;
     private String profileImageUrl;
-    private String username;
     private Date lastLoginDate;
     private Date lastLoginDateDisplay;
     private Date joinDate;

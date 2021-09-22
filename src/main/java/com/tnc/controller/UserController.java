@@ -1,6 +1,7 @@
 package com.tnc.controller;
 
 import com.tnc.controller.dto.UserDTO;
+import com.tnc.controller.dto.UserDTOForRegister;
 import com.tnc.controller.mapper.UserDTOMapper;
 import com.tnc.service.exception.EmailExistException;
 import com.tnc.service.exception.ExceptionHandling;
@@ -26,9 +27,14 @@ public class UserController extends ExceptionHandling {
     private final UserService userService;
     private final UserDTOMapper userDTOMapper;
 
+    @PostMapping("/login")
+    public ResponseEntity<UserDTOForRegister> login(@RequestBody UserDTOForRegister userDTO){
+        return ResponseEntity.ok(userDTOMapper.toDTORegistration(userService.login(userDTOMapper.toDomainRegistration(userDTO))));
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException {
-        return ResponseEntity.ok(userDTOMapper.toDTO(userService.register(userDTOMapper.toDomain(userDTO))));
+    public ResponseEntity<UserDTOForRegister> register(@RequestBody UserDTOForRegister userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException {
+        return ResponseEntity.ok(userDTOMapper.toDTORegistration(userService.register(userDTOMapper.toDomainRegistration(userDTO))));
     }
 
     @GetMapping(value = "/{id}")

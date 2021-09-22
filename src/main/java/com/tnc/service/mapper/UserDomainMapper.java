@@ -5,6 +5,7 @@ import com.tnc.service.domain.UserDomain;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface UserDomainMapper {
@@ -18,4 +19,5 @@ public interface UserDomainMapper {
 
     List<UserDomain> toDomainList(List<User> userList);
 
+    UserDomain toDomain(Optional<User> byEmail);
 }

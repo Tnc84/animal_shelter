@@ -12,7 +12,9 @@ import com.tnc.service.mapper.UserDomainMapper;
 import com.tnc.service.security.PasswordEncoder;
 import com.tnc.service.security.UserPrincipal;
 import com.tnc.service.security.util.JWTTokenProvider;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,14 +41,25 @@ import static org.springframework.http.HttpStatus.OK;
 @Transactional
 @Qualifier("userDetailsService")
 @RequiredArgsConstructor
+//@NoArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
-    private final UserRepository userRepository;
-    private final UserDomainMapper userDomainMapper;
-    private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
-    private final JWTTokenProvider jwtTokenProvider;
+    private UserRepository userRepository;
+    private UserDomainMapper userDomainMapper;
+    @Getter
+    @Accessors(chain = true)
+    private PasswordEncoder passwordEncoder;
+    @Getter
+    @Accessors(chain = true)
+    private AuthenticationManager authenticationManager;
+    private JWTTokenProvider jwtTokenProvider;
+
+    public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, JWTTokenProvider jwtTokenProvider) {
+        this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     public ResponseEntity<UserDomain> login(UserDomain userDomain) {
         authenticate(userDomain.getUsername(), userDomain.getPassword());

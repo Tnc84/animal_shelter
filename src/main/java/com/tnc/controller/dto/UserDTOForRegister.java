@@ -4,7 +4,6 @@ import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;

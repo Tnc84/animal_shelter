@@ -12,7 +12,9 @@ import com.tnc.service.mapper.UserDomainMapper;
 import com.tnc.service.security.PasswordEncoder;
 import com.tnc.service.security.UserPrincipal;
 import com.tnc.service.security.util.JWTTokenProvider;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -40,18 +42,14 @@ import static org.springframework.http.HttpStatus.OK;
 @Service
 @Transactional
 @Qualifier("userDetailsService")
-@RequiredArgsConstructor
-//@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
     private UserRepository userRepository;
     private UserDomainMapper userDomainMapper;
-    @Getter
-    @Accessors(chain = true)
     private PasswordEncoder passwordEncoder;
-    @Getter
-    @Accessors(chain = true)
     private AuthenticationManager authenticationManager;
     private JWTTokenProvider jwtTokenProvider;
 

@@ -12,8 +12,6 @@ import com.tnc.service.mapper.UserDomainMapper;
 import com.tnc.service.security.PasswordEncoder;
 import com.tnc.service.security.UserPrincipal;
 import com.tnc.service.security.util.JWTTokenProvider;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
@@ -42,27 +40,16 @@ import static org.springframework.http.HttpStatus.OK;
 @Transactional
 @Qualifier("userDetailsService")
 @RequiredArgsConstructor
-//@NoArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
-    @Autowired
-    private  UserRepository userRepository;
-    @Autowired
-    private  UserDomainMapper userDomainMapper;
-    @Autowired
-    private  PasswordEncoder passwordEncoder;
-    @Autowired
-    private  AuthenticationManager authenticationManager;
-    @Autowired
-    private  JWTTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
+    private final UserDomainMapper userDomainMapper;
+    private final PasswordEncoder passwordEncoder;
+    @Autowired // field or setter injection for avoid circular dependencies
+    private AuthenticationManager authenticationManager;
+    private final JWTTokenProvider jwtTokenProvider;
 
-
-//    public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, JWTTokenProvider jwtTokenProvider) {
-//        this.userRepository = userRepository;
-//        this.authenticationManager = authenticationManager;
-//        this.jwtTokenProvider = jwtTokenProvider;
-//    }
 
     public ResponseEntity<UserDomain> login(UserDomain userDomain) {
         authenticate(userDomain.getUsername(), userDomain.getPassword());
@@ -80,10 +67,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDomain.setUserId(generateUserId());
         String password = generatePassword();
         String encodedPassword = encodePassword(password);
-//        userDomain.setFirstName(userDomain.getFirstName());
-//        userDomain.setLastName(userDomain.getLastName());
-//        userDomain.setUsername(userDomain.getUsername());
-//        userDomain.setEmail(userDomain.getEmail());
         userDomain.setJoinDate(new Date());
         userDomain.setPassword(encodedPassword);
         userDomain.setActive(true);

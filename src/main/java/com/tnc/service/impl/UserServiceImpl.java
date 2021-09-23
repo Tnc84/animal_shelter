@@ -13,13 +13,12 @@ import com.tnc.service.security.PasswordEncoder;
 import com.tnc.service.security.UserPrincipal;
 import com.tnc.service.security.util.JWTTokenProvider;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.Accessors;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -42,22 +41,28 @@ import static org.springframework.http.HttpStatus.OK;
 @Service
 @Transactional
 @Qualifier("userDetailsService")
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
+//@NoArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
-    private UserRepository userRepository;
-    private UserDomainMapper userDomainMapper;
-    private PasswordEncoder passwordEncoder;
-    private AuthenticationManager authenticationManager;
-    private JWTTokenProvider jwtTokenProvider;
+    @Autowired
+    private  UserRepository userRepository;
+    @Autowired
+    private  UserDomainMapper userDomainMapper;
+    @Autowired
+    private  PasswordEncoder passwordEncoder;
+    @Autowired
+    private  AuthenticationManager authenticationManager;
+    @Autowired
+    private  JWTTokenProvider jwtTokenProvider;
 
-    public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, JWTTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+
+//    public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, JWTTokenProvider jwtTokenProvider) {
+//        this.userRepository = userRepository;
+//        this.authenticationManager = authenticationManager;
+//        this.jwtTokenProvider = jwtTokenProvider;
+//    }
 
     public ResponseEntity<UserDomain> login(UserDomain userDomain) {
         authenticate(userDomain.getUsername(), userDomain.getPassword());
@@ -65,8 +70,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserPrincipal userPrincipal = new UserPrincipal(userDomainMapper.toEntity(loginUser));
         HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
         return new ResponseEntity<>(loginUser, jwtHeader, OK);
-
-//        return ResponseEntity.ok(userDTOMapper.toDTORegistration(userService.register(userDTOMapper.toDomainRegistration(userDTO))));
     }
 
     @Override

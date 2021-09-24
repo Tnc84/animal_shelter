@@ -5,18 +5,12 @@ import com.tnc.service.validation.OnUpdate;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Validated
 public record UserDTO(
 
-        @Null(message = "Id must be null", groups = OnCreate.class)
-        @NotNull(message = "Id must not be null", groups = OnUpdate.class)
-        @Positive
         Long id,
         String userId,
         String firstName,

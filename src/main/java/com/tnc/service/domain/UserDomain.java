@@ -1,15 +1,13 @@
 package com.tnc.service.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Accessors(chain = true)
 public class UserDomain {
     private Long id;
@@ -28,6 +26,5 @@ public class UserDomain {
     private String[] authorities;
     private boolean isActive;
     private boolean isNotLocked;
-
 
 }

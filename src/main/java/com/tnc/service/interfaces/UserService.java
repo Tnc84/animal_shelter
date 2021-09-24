@@ -4,6 +4,8 @@ import com.tnc.service.domain.UserDomain;
 import com.tnc.service.exception.EmailExistException;
 import com.tnc.service.exception.UserNotFoundException;
 import com.tnc.service.exception.UsernameExistException;
+import com.tnc.service.security.UserPrincipal;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +32,9 @@ public interface UserService {
 
     ResponseEntity<UserDomain> login(UserDomain userDomain);
 
+    void authenticate(String username, String password);
+
+    UserPrincipal returnForLoginMethod(UserDomain userDomain);
+
+    HttpHeaders getJwtHeader(UserPrincipal userPrincipal);
 }

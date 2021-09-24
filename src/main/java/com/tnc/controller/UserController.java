@@ -3,20 +3,25 @@ package com.tnc.controller;
 import com.tnc.controller.dto.UserDTO;
 import com.tnc.controller.dto.UserDTOForRegister;
 import com.tnc.controller.mapper.UserDTOMapper;
+import com.tnc.service.domain.UserDomain;
 import com.tnc.service.exception.EmailExistException;
 import com.tnc.service.exception.ExceptionHandling;
 import com.tnc.service.exception.UserNotFoundException;
 import com.tnc.service.exception.UsernameExistException;
 import com.tnc.service.interfaces.UserService;
+import com.tnc.service.security.UserPrincipal;
 import com.tnc.service.validation.OnCreate;
 import com.tnc.service.validation.OnUpdate;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping(path = {"/", "/users"})
@@ -28,9 +33,21 @@ public class UserController extends ExceptionHandling {
     private final UserDTOMapper userDTOMapper;
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTOForRegister> login(@RequestBody UserDTOForRegister userDTO){
-        return ResponseEntity.ok(userDTOMapper.toDTORegistration(userService.login(userDTOMapper.toDomainRegistration(userDTO))));
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
+        userService.authenticate(userDTO.username(), userDTO.password());
+        UserDTO loginUser = userDTOMapper.toDTO(userService.findByUsername(userDTO.username()));
+        UserPrincipal userPrincipal = userService.returnForLoginMethod(userDTOMapper.toDomain(loginUser));
+        HttpHeaders jwtHeader = userService.getJwtHeader(userPrincipal);
+        return new ResponseEntity<>(loginUser, jwtHeader, OK);
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<UserDTO> loginUser(@RequestBody UserDTO userDTO){
+//       userService.login(userDTOMapper.toDomain(userDTO));
+//        return ResponseEntity.ok(userDTO);
+////        return ResponseEntity.ok(userDTOMapper.toDTO(userService.login(userDTOMapper.toDomain(userDTO))));
+////        return ResponseEntity.ok(userDTOMapper.toDTO(userService.login(userDTOMapper.toDomainLogin(userDTO))));
+//    }
 
     @PostMapping("/register")
     public ResponseEntity<UserDTOForRegister> register(@RequestBody UserDTOForRegister userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException {

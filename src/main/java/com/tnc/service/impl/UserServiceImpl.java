@@ -4,9 +4,6 @@ import com.tnc.repository.entities.User;
 import com.tnc.repository.repositories.UserRepository;
 import com.tnc.service.domain.Role;
 import com.tnc.service.domain.UserDomain;
-import com.tnc.service.exception.EmailExistException;
-import com.tnc.service.exception.UserNotFoundException;
-import com.tnc.service.exception.UsernameExistException;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.mapper.UserDomainMapper;
 import com.tnc.service.security.PasswordEncoder;
@@ -34,7 +31,6 @@ import java.util.List;
 
 import static com.tnc.service.security.constant.SecurityConstant.JWT_TOKEN_HEADER;
 import static com.tnc.service.security.constant.UserImplConstant.*;
-import static org.springframework.http.HttpStatus.OK;
 
 @Service
 @Transactional
@@ -51,19 +47,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final JWTTokenProvider jwtTokenProvider;
 
 
-    public ResponseEntity<UserDomain> login(UserDomain userDomain) {
-        authenticate(userDomain.getUsername(), userDomain.getPassword());
-        UserDomain loginUser = findByUsername(userDomain.getUsername());
-        UserPrincipal userPrincipal = new UserPrincipal(userDomainMapper.toEntity(loginUser));
-        HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
-        return new ResponseEntity<>(loginUser, jwtHeader, OK);
+    public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
+        var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
+        return new UserPrincipal(userDomainMapper.toEntity(loginUser));
     }
 
     @Override
-    public UserDomain register(UserDomain userDomain) throws UserNotFoundException, EmailExistException, UsernameExistException {
+    public ResponseEntity<UserDomain> login(UserDomain userDomain) {
+        return null;
+    }
 
-//        var currentUsername = userDomain.getUsername();
-//        validateNewUsernameAndEmail(currentUsername, userDomain.getUsername(), userDomain.getEmail());
+    public HttpHeaders getJwtHeader(UserPrincipal userPrincipal) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(JWT_TOKEN_HEADER, jwtTokenProvider.generateJwtToken(userPrincipal));
+        return headers;
+    }
+
+    public void authenticate(String username, String password) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+    }
+
+    @Override
+    public UserDomain register(UserDomain userDomain) {
+
         userDomain.setUserId(generateUserId());
         String password = generatePassword();
         String encodedPassword = encodePassword(password);
@@ -138,16 +144,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             LOGGER.info(FOUND_USER_BY_USERNAME + username);
             return userPrincipal;
         }
-    }
-
-    private HttpHeaders getJwtHeader(UserPrincipal userPrincipal) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(JWT_TOKEN_HEADER, jwtTokenProvider.generateJwtToken(userPrincipal));
-        return headers;
-    }
-
-    private void authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
     }
 
 //    private UserDomain validateNewUsernameAndEmail(String currentUsername, String newUsername, String newEmail) throws UsernameExistException, EmailExistException, UserNotFoundException {

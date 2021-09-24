@@ -1,20 +1,20 @@
 package com.tnc.repository.entities;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Entity(name = "users")
-@Data
-@Accessors(chain = true)
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class User implements Serializable {
 
     @Id
@@ -54,4 +54,16 @@ public class User implements Serializable {
 //    private Set<Role> roles = new HashSet<>();
 ///for JWT
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+//        User user = (User) o;
+//        return Objects.equals(id, user.id);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return 0;
+//    }
 }

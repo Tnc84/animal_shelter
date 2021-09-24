@@ -3,7 +3,6 @@ package com.tnc.controller;
 import com.tnc.controller.dto.UserDTO;
 import com.tnc.controller.dto.UserDTOForRegister;
 import com.tnc.controller.mapper.UserDTOMapper;
-import com.tnc.service.domain.UserDomain;
 import com.tnc.service.exception.EmailExistException;
 import com.tnc.service.exception.ExceptionHandling;
 import com.tnc.service.exception.UserNotFoundException;
@@ -40,14 +39,6 @@ public class UserController extends ExceptionHandling {
         HttpHeaders jwtHeader = userService.getJwtHeader(userPrincipal);
         return new ResponseEntity<>(loginUser, jwtHeader, OK);
     }
-
-//    @PostMapping("/login")
-//    public ResponseEntity<UserDTO> loginUser(@RequestBody UserDTO userDTO){
-//       userService.login(userDTOMapper.toDomain(userDTO));
-//        return ResponseEntity.ok(userDTO);
-////        return ResponseEntity.ok(userDTOMapper.toDTO(userService.login(userDTOMapper.toDomain(userDTO))));
-////        return ResponseEntity.ok(userDTOMapper.toDTO(userService.login(userDTOMapper.toDomainLogin(userDTO))));
-//    }
 
     @PostMapping("/register")
     public ResponseEntity<UserDTOForRegister> register(@RequestBody UserDTOForRegister userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException {

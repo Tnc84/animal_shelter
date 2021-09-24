@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,11 +51,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new UserPrincipal(userDomainMapper.toEntity(loginUser));
     }
 
-    @Override
-    public ResponseEntity<UserDomain> login(UserDomain userDomain) {
-        return null;
-    }
-
     public HttpHeaders getJwtHeader(UserPrincipal userPrincipal) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(JWT_TOKEN_HEADER, jwtTokenProvider.generateJwtToken(userPrincipal));
@@ -84,10 +78,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
     }
 
-    private String getTemporaryProfileImageUrl() {
-        return ServletUriComponentsBuilder.fromCurrentContextPath().path(DEFAULT_USER_IMAGE_PATH).toUriString();
-    }
-
     private String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }
@@ -98,6 +88,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private String generateUserId() {
         return RandomStringUtils.randomNumeric(10);
+    }
+
+    private String getTemporaryProfileImageUrl() {
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path(DEFAULT_USER_IMAGE_PATH).toUriString();
     }
 
     @Override

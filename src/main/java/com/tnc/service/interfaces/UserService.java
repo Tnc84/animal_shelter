@@ -30,8 +30,6 @@ public interface UserService {
 
     UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException;
 
-    ResponseEntity<UserDomain> login(UserDomain userDomain);
-
     void authenticate(String username, String password);
 
     UserPrincipal returnForLoginMethod(UserDomain userDomain);

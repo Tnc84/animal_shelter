@@ -6,6 +6,7 @@ import com.tnc.service.domain.Role;
 import com.tnc.service.domain.UserDomain;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.mapper.UserDomainMapper;
+import com.tnc.service.preventBroteForceAttack.LoginAttemptService;
 import com.tnc.service.security.PasswordEncoder;
 import com.tnc.service.security.UserPrincipal;
 import com.tnc.service.security.util.JWTTokenProvider;
@@ -35,16 +36,24 @@ import static com.tnc.service.security.constant.UserImplConstant.*;
 @Transactional
 @Qualifier("userDetailsService")
 @RequiredArgsConstructor
+//@NoArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
+
     private final UserRepository userRepository;
     private final UserDomainMapper userDomainMapper;
     private final PasswordEncoder passwordEncoder;
     @Autowired // field or setter injection for avoid circular dependencies
     private AuthenticationManager authenticationManager;
     private final JWTTokenProvider jwtTokenProvider;
+    private final LoginAttemptService loginAttemptService;
 
+//    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, LoginAttemptService loginAttemptService) {
+//        this.userRepository = userRepository;
+//        this.passwordEncoder = passwordEncoder;
+//        this.loginAttemptService = loginAttemptService;
+//    }
 
     public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
         var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
@@ -131,12 +140,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             LOGGER.error(NO_USER_FOUND_BY_USERNAME + username);
             throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
         } else {
+            validateLoginAttempt(user);// check if the account is not locked before setting the user
             user.setLastLoginDateDisplay(user.getLastLoginDate());
             user.setLastLoginDate(new Date());
             userRepository.save(user);
             UserPrincipal userPrincipal = new UserPrincipal(user);
             LOGGER.info(FOUND_USER_BY_USERNAME + username);
             return userPrincipal;
+        }
+    }
+
+    private void validateLoginAttempt(User user) {
+        if (user.isNotActive()) {
+            if (loginAttemptService.hasExceededMaxAttempts(user.getUsername())) {
+                user.setNotActive(false);
+            } else {
+                user.setNotActive(true);
+            }
+        } else {
+            loginAttemptService.evictUserForLoginAttemptCache(user.getUsername());
         }
     }
 

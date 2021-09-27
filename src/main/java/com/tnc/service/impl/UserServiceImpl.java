@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,7 @@ import static com.tnc.service.security.constant.UserImplConstant.*;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    //remove final from logger
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
 
     private final UserRepository userRepository;
@@ -47,6 +49,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //    private AuthenticationManager authenticationManager;
     private final JWTTokenProvider jwtTokenProvider;
     private final LoginAttemptService loginAttemptService;
+    private final EmailService emailService;
 
     public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
         var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
@@ -64,7 +67,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //    }
 
     @Override
-    public UserDomain register(UserDomain userDomain) {
+    public UserDomain register(UserDomain userDomain) throws MessagingException {
 
         userDomain.setUserId(generateUserId());
         String password = generatePassword();
@@ -76,8 +79,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDomain.setRole(Role.ROLE_USER.name());
         userDomain.setAuthorities(Role.ROLE_USER.getAuthorities());
         userDomain.setProfileImageUrl(getTemporaryProfileImageUrl());
-        LOGGER.info("New userDomain password " + password);
-        return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
+        userRepository.save(userDomainMapper.toEntity(userDomain));
+        LOGGER.info("New userDomain password " + password);//this line must be removed
+        emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
+        return userDomain;
     }
 
     private String encodePassword(String password) {

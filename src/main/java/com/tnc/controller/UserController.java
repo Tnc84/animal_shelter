@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class UserController extends ExceptionHandling {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTOForRegister> register(@RequestBody UserDTOForRegister userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException {
+    public ResponseEntity<UserDTOForRegister> register(@RequestBody UserDTOForRegister userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException {
         return ResponseEntity.ok(userDTOMapper.toDTORegistration(userService.register(userDTOMapper.toDomainRegistration(userDTO))));
     }
 

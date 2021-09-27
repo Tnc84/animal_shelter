@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Service
@@ -28,7 +29,7 @@ public interface UserService {
 
     UserDomain update(UserDomain userDomain);
 
-    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException;
+    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
 
 //    void authenticate(String username, String password);
 

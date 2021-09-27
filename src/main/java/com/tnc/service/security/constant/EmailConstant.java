@@ -3,7 +3,7 @@ package com.tnc.service.security.constant;
 public class EmailConstant {
     public static final String SIMPLE_EMAIL_TRANSPORT_PROTOCOL = "smtps";
     public static final String USERNAME = "tancaubogdan3@gmail.com";
-    public static final String PASSWORD = "tancaubogdan1984";
+    public static final String PASSWORD = "myPassword";
     public static final String FROM_EMAIL = "support@getarrays.com";
     public static final String CC_EMAIL = "";
     public static final String EMAIL_SUBJECT = "Get Arrays, LLC - New Password";

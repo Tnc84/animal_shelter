@@ -30,7 +30,7 @@ public interface UserService {
 
     UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException;
 
-    void authenticate(String username, String password);
+//    void authenticate(String username, String password);
 
     UserPrincipal returnForLoginMethod(UserDomain userDomain);
 

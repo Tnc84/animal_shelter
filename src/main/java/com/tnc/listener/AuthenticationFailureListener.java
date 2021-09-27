@@ -1,13 +1,13 @@
 package com.tnc.listener;
 
 import com.tnc.service.preventBroteForceAttack.LoginAttemptService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthenticationFailureListener {
     private final LoginAttemptService loginAttemptService;
 

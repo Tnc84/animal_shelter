@@ -36,7 +36,6 @@ import static com.tnc.service.security.constant.UserImplConstant.*;
 @Transactional
 @Qualifier("userDetailsService")
 @RequiredArgsConstructor
-//@NoArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
@@ -44,16 +43,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final UserDomainMapper userDomainMapper;
     private final PasswordEncoder passwordEncoder;
-    @Autowired // field or setter injection for avoid circular dependencies
-    private AuthenticationManager authenticationManager;
+//    @Autowired // field or setter injection for avoid circular dependencies
+//    private AuthenticationManager authenticationManager;
     private final JWTTokenProvider jwtTokenProvider;
     private final LoginAttemptService loginAttemptService;
-
-//    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, LoginAttemptService loginAttemptService) {
-//        this.userRepository = userRepository;
-//        this.passwordEncoder = passwordEncoder;
-//        this.loginAttemptService = loginAttemptService;
-//    }
 
     public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
         var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
@@ -66,9 +59,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return headers;
     }
 
-    public void authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-    }
+//    public void authenticate(String username, String password) {
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+//    }
 
     @Override
     public UserDomain register(UserDomain userDomain) {
@@ -135,7 +128,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username);
+        var user = userRepository.findUserByUsername(username);
         if (user == null) {
             LOGGER.error(NO_USER_FOUND_BY_USERNAME + username);
             throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);

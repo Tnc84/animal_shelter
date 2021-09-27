@@ -14,9 +14,12 @@ import com.tnc.service.validation.OnUpdate;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -30,18 +33,23 @@ public class UserController extends ExceptionHandling {
 
     private final UserService userService;
     private final UserDTOMapper userDTOMapper;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
-        userService.authenticate(userDTO.username(), userDTO.password());
+        authenticate(userDTO.username(), userDTO.password());
         UserDTO loginUser = userDTOMapper.toDTO(userService.findByUsername(userDTO.username()));
         UserPrincipal userPrincipal = userService.returnForLoginMethod(userDTOMapper.toDomain(loginUser));
         HttpHeaders jwtHeader = userService.getJwtHeader(userPrincipal);
         return new ResponseEntity<>(loginUser, jwtHeader, OK);
     }
 
+    public void authenticate(String username, String password) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<UserDTOForRegister> register(@RequestBody UserDTOForRegister userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException {
+    public ResponseEntity<UserDTOForRegister> register(@RequestBody UserDTOForRegister userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException {
         return ResponseEntity.ok(userDTOMapper.toDTORegistration(userService.register(userDTOMapper.toDomainRegistration(userDTO))));
     }
 

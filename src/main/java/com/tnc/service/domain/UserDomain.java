@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Accessors(chain = true)
+//@Accessors(chain = true)
 public class UserDomain {
     private Long id;
     private String userId;

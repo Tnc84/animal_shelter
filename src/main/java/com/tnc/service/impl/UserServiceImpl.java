@@ -6,6 +6,7 @@ import com.tnc.service.domain.Role;
 import com.tnc.service.domain.UserDomain;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.mapper.UserDomainMapper;
+import com.tnc.service.preventBroteForceAttack.LoginAttemptService;
 import com.tnc.service.security.PasswordEncoder;
 import com.tnc.service.security.UserPrincipal;
 import com.tnc.service.security.util.JWTTokenProvider;
@@ -24,6 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -37,14 +39,17 @@ import static com.tnc.service.security.constant.UserImplConstant.*;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    //remove final from logger
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
+
     private final UserRepository userRepository;
     private final UserDomainMapper userDomainMapper;
     private final PasswordEncoder passwordEncoder;
-    @Autowired // field or setter injection for avoid circular dependencies
-    private AuthenticationManager authenticationManager;
+//    @Autowired // field or setter injection for avoid circular dependencies
+//    private AuthenticationManager authenticationManager;
     private final JWTTokenProvider jwtTokenProvider;
-
+    private final LoginAttemptService loginAttemptService;
+    private final EmailService emailService;
 
     public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
         var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
@@ -57,12 +62,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return headers;
     }
 
-    public void authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-    }
+//    public void authenticate(String username, String password) {
+//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+//    }
 
     @Override
-    public UserDomain register(UserDomain userDomain) {
+    public UserDomain register(UserDomain userDomain) throws MessagingException {
 
         userDomain.setUserId(generateUserId());
         String password = generatePassword();
@@ -74,8 +79,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDomain.setRole(Role.ROLE_USER.name());
         userDomain.setAuthorities(Role.ROLE_USER.getAuthorities());
         userDomain.setProfileImageUrl(getTemporaryProfileImageUrl());
-        LOGGER.info("New userDomain password " + password);
-        return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
+        userRepository.save(userDomainMapper.toEntity(userDomain));
+        LOGGER.info("New userDomain password " + password);//this line must be removed
+        emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
+        return userDomain;
     }
 
     private String encodePassword(String password) {
@@ -126,17 +133,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username);
+        var user = userRepository.findUserByUsername(username);
         if (user == null) {
             LOGGER.error(NO_USER_FOUND_BY_USERNAME + username);
             throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
         } else {
+            validateLoginAttempt(user);// check if the account is not locked before setting the user
             user.setLastLoginDateDisplay(user.getLastLoginDate());
             user.setLastLoginDate(new Date());
             userRepository.save(user);
             UserPrincipal userPrincipal = new UserPrincipal(user);
             LOGGER.info(FOUND_USER_BY_USERNAME + username);
             return userPrincipal;
+        }
+    }
+
+    private void validateLoginAttempt(User user) {
+        if (user.isNotActive()) {
+            if (loginAttemptService.hasExceededMaxAttempts(user.getUsername())) {
+                user.setNotActive(false);
+            } else {
+                user.setNotActive(true);
+            }
+        } else {
+            loginAttemptService.evictUserForLoginAttemptCache(user.getUsername());
         }
     }
 

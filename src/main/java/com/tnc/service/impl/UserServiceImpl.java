@@ -40,8 +40,10 @@ import java.util.List;
 import static com.tnc.service.constant.FileConstant.*;
 import static com.tnc.service.constant.SecurityConstant.JWT_TOKEN_HEADER;
 import static com.tnc.service.constant.UserImplConstant.*;
-import static com.tnc.service.domain.Role.*;
+import static com.tnc.service.domain.Role.ROLE_USER;
+import static com.tnc.service.domain.Role.valueOf;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 @Service
 @Transactional
@@ -77,10 +79,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //    }
 
     @Override
-    public UserDomain register(UserDomain userDomain) throws MessagingException {
-
+    public UserDomain register(String firstName, String lastName, String username, String email) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException {
+        validateNewUsernameAndEmail(EMPTY, username, email);
+        UserDomain userDomain = new UserDomain();
         userDomain.setUserId(generateUserId());
         String password = generatePassword();
+        userDomain.setFirstName(firstName);
+        userDomain.setLastName(lastName);
+        userDomain.setUsername(username);
+        userDomain.setEmail(email);
         userDomain.setJoinDate(new Date());
         userDomain.setPassword(encodePassword(password));
         userDomain.setActive(true);

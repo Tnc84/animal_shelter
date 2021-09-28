@@ -17,9 +17,9 @@ import java.util.List;
 @Service
 public interface UserService {
 
-//    UserDomain register(String firstName, String lastName, String username, String email) throws UserNotFoundException, EmailExistException, UsernameExistException;
+    UserDomain register(String firstName, String lastName, String username, String email) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
 
-    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
+//    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
 
     UserDomain findByUsername(String username);
 

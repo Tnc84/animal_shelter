@@ -50,7 +50,7 @@ public class UserController extends ExceptionHandling {
 
     @PostMapping("/register")
     public ResponseEntity<UserDTOForRegister> register(@RequestBody UserDTOForRegister userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException {
-        return ResponseEntity.ok(userDTOMapper.toDTORegistration(userService.register(userDTOMapper.toDomainRegistration(userDTO))));
+        return ResponseEntity.ok(userDTOMapper.toDTORegistration(userDTOMapper.toDomainRegistration(userDTO)));
     }
 
     @GetMapping(value = "/{id}")

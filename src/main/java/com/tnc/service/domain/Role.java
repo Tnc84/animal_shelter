@@ -1,6 +1,6 @@
 package com.tnc.service.domain;
 
-import static com.tnc.service.security.constant.Authority.*;
+import static com.tnc.service.constant.Authority.*;
 
 public enum Role {
     ROLE_USER(USER_AUTHORITIES),

@@ -4,7 +4,6 @@ import com.tnc.service.security.filter.JwtAccessDeniedHandler;
 import com.tnc.service.security.filter.JwtAuthenticationEntryPoint;
 import com.tnc.service.security.filter.JwtAuthorizationFilter;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.tnc.service.security.constant.SecurityConstant.*;
+import static com.tnc.service.constant.SecurityConstant.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.*;
 
 @Configuration

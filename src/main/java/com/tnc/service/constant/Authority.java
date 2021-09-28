@@ -1,4 +1,4 @@
-package com.tnc.service.security.constant;
+package com.tnc.service.constant;
 
 public class Authority {
     public static final String[] USER_AUTHORITIES = {"user:read"};

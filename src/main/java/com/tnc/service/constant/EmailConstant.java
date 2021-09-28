@@ -1,4 +1,4 @@
-package com.tnc.service.security.constant;
+package com.tnc.service.constant;
 
 public class EmailConstant {
     public static final String SIMPLE_EMAIL_TRANSPORT_PROTOCOL = "smtps";

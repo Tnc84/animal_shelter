@@ -1,7 +1,6 @@
 package com.tnc.controller;
 
 import com.tnc.controller.dto.UserDTO;
-import com.tnc.controller.dto.UserDTOForRegister;
 import com.tnc.controller.mapper.UserDTOMapper;
 import com.tnc.repository.entities.User;
 import com.tnc.service.domain.HttpResponse;

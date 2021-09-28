@@ -19,6 +19,8 @@ public interface UserService {
 
 //    UserDomain register(String firstName, String lastName, String username, String email) throws UserNotFoundException, EmailExistException, UsernameExistException;
 
+    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
+
     UserDomain findByUsername(String username);
 
     UserDomain findByEmail(String email);
@@ -41,7 +43,6 @@ public interface UserService {
 
     UserDomain updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, EmailExistException, UsernameExistException, IOException;
 
-    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
 
 //    void authenticate(String username, String password);
 

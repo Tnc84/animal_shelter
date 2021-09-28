@@ -81,9 +81,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         userDomain.setUserId(generateUserId());
         String password = generatePassword();
-        String encodedPassword = encodePassword(password);
         userDomain.setJoinDate(new Date());
-        userDomain.setPassword(encodedPassword);
+        userDomain.setPassword(encodePassword(password));
         userDomain.setActive(true);
         userDomain.setNotLocked(true);
         userDomain.setRole(ROLE_USER.name());

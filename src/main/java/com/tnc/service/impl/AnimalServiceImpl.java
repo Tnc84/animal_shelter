@@ -1,6 +1,6 @@
 package com.tnc.service.impl;
 
-import com.tnc.repository.repositories.AnimalRepository;
+import com.tnc.repository.interfaces.AnimalRepository;
 import com.tnc.service.mapper.AnimalDomainMapper;
 import com.tnc.service.domain.AnimalDomain;
 import com.tnc.service.interfaces.AnimalService;

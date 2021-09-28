@@ -1,7 +1,7 @@
 package com.tnc.service.impl;
 
 import com.tnc.repository.entities.User;
-import com.tnc.repository.repositories.UserRepository;
+import com.tnc.repository.interfaces.UserRepository;
 import com.tnc.service.domain.Role;
 import com.tnc.service.domain.UserDomain;
 import com.tnc.service.exception.EmailExistException;

@@ -173,25 +173,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDomainMapper.toDomain(userRepository.findUserByEmail(email));
     }
 
-    @Override
-    public UserDomain get(Long id) {
-        return userDomainMapper.toDomain(userRepository.getById(id));
-    }
-
+//    @Override
+//    public UserDomain get(Long id) {
+//        return userDomainMapper.toDomain(userRepository.getById(id));
+//    }
+//
     @Override
     public List<UserDomain> getAll() {
         return userDomainMapper.toDomainList(userRepository.findAll());
     }
-
-    @Override
-    public UserDomain add(UserDomain userDomain) {
-        return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
-    }
-
-    @Override
-    public UserDomain update(UserDomain userDomain) {
-        return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
-    }
+//
+//    @Override
+//    public UserDomain add(UserDomain userDomain) {
+//        return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
+//    }
+//
+//    @Override
+//    public UserDomain update(UserDomain userDomain) {
+//        return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
+//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -211,11 +211,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     private void validateLoginAttempt(User user) {
-        if (user.isNotActive()) {
+        if (user.isNotLocked()) {
             if (loginAttemptService.hasExceededMaxAttempts(user.getUsername())) {
-                user.setNotActive(false);
+                user.setNotLocked(false);
             } else {
-                user.setNotActive(true);
+                user.setNotLocked(true);
             }
         } else {
             loginAttemptService.evictUserForLoginAttemptCache(user.getUsername());

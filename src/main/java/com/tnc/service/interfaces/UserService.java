@@ -19,19 +19,10 @@ public interface UserService {
 
     UserDomain register(String firstName, String lastName, String username, String email) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
 
-//    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
 
     UserDomain findByUsername(String username);
 
     UserDomain findByEmail(String email);
-
-    UserDomain get(Long id);
-
-    List<UserDomain> getAll();
-
-    UserDomain add(UserDomain userDomain);
-
-    UserDomain update(UserDomain userDomain);
 
     UserDomain addNewUser(String firstName, String laseName, String username, String email, String role, boolean isActive, boolean isNotActive, MultipartFile profileImage) throws IOException;
 
@@ -43,10 +34,19 @@ public interface UserService {
 
     UserDomain updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, EmailExistException, UsernameExistException, IOException;
 
-
-//    void authenticate(String username, String password);
-
     UserPrincipal returnForLoginMethod(UserDomain userDomain);
 
     HttpHeaders getJwtHeader(UserPrincipal userPrincipal);
+
+//    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
+
+//    void authenticate(String username, String password);
+
+//    UserDomain add(UserDomain userDomain);
+//
+//    UserDomain update(UserDomain userDomain);
+
+//    UserDomain get(Long id);
+//
+    List<UserDomain> getAll();
 }

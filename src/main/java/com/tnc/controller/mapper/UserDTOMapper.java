@@ -6,6 +6,7 @@ import com.tnc.repository.entities.User;
 import com.tnc.service.domain.UserDomain;
 import org.mapstruct.Mapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface UserDTOMapper {
 
     UserDTOForRegister toDTORegistration(UserDomain userDomain);
 
+    Object toDomainWithStringParam(String firstName, String lastName, String username, String email, String role, boolean parseBoolean, boolean parseBoolean1, MultipartFile profileImage);
+    Object toDomainForUpdate(String currentUsername, String firstName, String lastName, String username, String email, String role, boolean parseBoolean, boolean parseBoolean1, MultipartFile profileImage);
 }

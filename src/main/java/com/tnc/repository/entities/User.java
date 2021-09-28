@@ -43,7 +43,7 @@ public class User implements Serializable {
     private String role;
     private String[] authorities;
     private boolean isActive;
-    private boolean isNotActive;
+    private boolean isNotLocked;
 
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(name = "user_roles",

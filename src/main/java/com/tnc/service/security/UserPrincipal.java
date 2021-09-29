@@ -1,6 +1,7 @@
 package com.tnc.service.security;
 
 import com.tnc.repository.entities.User;
+import com.tnc.service.domain.UserDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +15,7 @@ import static java.util.Arrays.stream;
 @RequiredArgsConstructor
 public class UserPrincipal implements UserDetails {
 
-    private final User user;
+    private final UserDomain user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

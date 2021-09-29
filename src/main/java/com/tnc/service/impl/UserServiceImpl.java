@@ -1,7 +1,5 @@
 package com.tnc.service.impl;
 
-import com.tnc.controller.dto.UserDTO;
-import com.tnc.repository.entities.User;
 import com.tnc.repository.interfaces.UserRepository;
 import com.tnc.service.domain.Role;
 import com.tnc.service.domain.UserDomain;
@@ -23,14 +21,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -57,13 +53,13 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    //remove final from logger
     private final Logger LOGGER = LoggerFactory.getLogger(getClass()); //getClass = this class
 
     private final UserRepository userRepository;
     private final UserDomainMapper userDomainMapper;
     private final PasswordEncoder passwordEncoder;
-        @Autowired // field or setter injection for avoid circular dependencies
+
+    @Autowired // field or setter injection for avoid circular dependencies
     private AuthenticationManager authenticationManager;
     private final JWTTokenProvider jwtTokenProvider;
     private final LoginAttemptService loginAttemptService;
@@ -71,11 +67,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     public UserDomain login(UserDomain userDomain) {
+        loadUserByUsername(userDomain.getUsername());
         authenticate(userDomain.getUsername(), userDomain.getPassword());
-        UserDomain loginUser = findByUsername(userDomain.getUsername());
-        UserPrincipal userPrincipal = new UserPrincipal(userDomainMapper.toEntity(loginUser));
-        HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
-        return loginUser;
+        return findByUsername(userDomain.getUsername());
     }
 
     public void authenticate(String username, String password) {
@@ -84,7 +78,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
         var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
-        return new UserPrincipal(userDomainMapper.toEntity(loginUser));
+        return new UserPrincipal(loginUser);
     }
 
     public HttpHeaders getJwtHeader(UserPrincipal userPrincipal) {
@@ -188,7 +182,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDomainMapper.toDomain(userRepository.findUserByEmail(email));
     }
 
-//    @Override
+    //    @Override
 //    public UserDomain get(Long id) {
 //        return userDomainMapper.toDomain(userRepository.getById(id));
 //    }
@@ -210,7 +204,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository.findUserByUsername(username);
+        var user = userDomainMapper.toDomain(userRepository.findUserByUsername(username));
         if (user == null) {
             LOGGER.error(NO_USER_FOUND_BY_USERNAME + username);
             throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
@@ -218,14 +212,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             validateLoginAttempt(user);// check if the account is not locked before setting the user
             user.setLastLoginDateDisplay(user.getLastLoginDate());
             user.setLastLoginDate(new Date());
-            userRepository.save(user);
+            userRepository.save(userDomainMapper.toEntity(user));
             UserPrincipal userPrincipal = new UserPrincipal(user);
             LOGGER.info(FOUND_USER_BY_USERNAME + username);
             return userPrincipal;
         }
     }
 
-    private void validateLoginAttempt(User user) {
+    private void validateLoginAttempt(UserDomain user) {
         if (user.isNotLocked()) {
             if (loginAttemptService.hasExceededMaxAttempts(user.getUsername())) {
                 user.setNotLocked(false);

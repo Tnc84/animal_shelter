@@ -2,19 +2,15 @@ package com.tnc.controller;
 
 import com.tnc.controller.dto.UserDTO;
 import com.tnc.controller.mapper.UserDTOMapper;
-import com.tnc.repository.entities.User;
 import com.tnc.service.domain.HttpResponse;
 import com.tnc.service.exception.*;
 import com.tnc.service.interfaces.UserService;
-import com.tnc.service.mapper.UserDomainMapper;
 import com.tnc.service.security.UserPrincipal;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,8 +42,10 @@ public class UserController extends ExceptionHandling {
 
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
-        userDTO = userDTOMapper.toDTO(userService.login(userDTOMapper.toDomain(userDTO)));
-        return new ResponseEntity(userDTO, OK);
+        var loginUser = userService.login(userDTOMapper.toDomain(userDTO));
+        UserPrincipal userPrincipal = new UserPrincipal(loginUser);
+        HttpHeaders jwtHeader = userService.getJwtHeader(userPrincipal);
+        return new ResponseEntity<>(userDTOMapper.toDTO(loginUser), jwtHeader, OK);
     }
 
     @PostMapping("/register")

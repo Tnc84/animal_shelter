@@ -18,6 +18,4 @@ public interface UserDTOMapper {
 
     List<UserDTO> toDTOList(List<UserDomain> userDomainList);
 
-    Object toDomainWithStringParam(String firstName, String lastName, String username, String email, String role, boolean parseBoolean, boolean parseBoolean1, MultipartFile profileImage);
-    Object toDomainForUpdate(String currentUsername, String firstName, String lastName, String username, String email, String role, boolean parseBoolean, boolean parseBoolean1, MultipartFile profileImage);
 }

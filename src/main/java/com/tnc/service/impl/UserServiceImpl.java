@@ -1,5 +1,6 @@
 package com.tnc.service.impl;
 
+import com.tnc.controller.dto.UserDTO;
 import com.tnc.repository.entities.User;
 import com.tnc.repository.interfaces.UserRepository;
 import com.tnc.service.domain.Role;
@@ -19,12 +20,17 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -57,11 +63,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final UserDomainMapper userDomainMapper;
     private final PasswordEncoder passwordEncoder;
-    //    @Autowired // field or setter injection for avoid circular dependencies
-//    private AuthenticationManager authenticationManager;
+        @Autowired // field or setter injection for avoid circular dependencies
+    private AuthenticationManager authenticationManager;
     private final JWTTokenProvider jwtTokenProvider;
     private final LoginAttemptService loginAttemptService;
     private final EmailService emailService;
+
+
+    public UserDomain login(UserDomain userDomain) {
+        authenticate(userDomain.getUsername(), userDomain.getPassword());
+        UserDomain loginUser = findByUsername(userDomain.getUsername());
+        UserPrincipal userPrincipal = new UserPrincipal(userDomainMapper.toEntity(loginUser));
+        HttpHeaders jwtHeader = getJwtHeader(userPrincipal);
+        return loginUser;
+    }
+
+    public void authenticate(String username, String password) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+    }
 
     public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
         var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
@@ -73,10 +92,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         headers.add(JWT_TOKEN_HEADER, jwtTokenProvider.generateJwtToken(userPrincipal));
         return headers;
     }
-
-//    public void authenticate(String username, String password) {
-//        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-//    }
 
     @Override
     public UserDomain register(String firstName, String lastName, String username, String email) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException {

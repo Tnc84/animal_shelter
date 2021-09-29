@@ -19,7 +19,6 @@ public interface UserService {
 
     UserDomain register(String firstName, String lastName, String username, String email) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
 
-
     UserDomain findByUsername(String username);
 
     UserDomain findByEmail(String email);
@@ -38,15 +37,7 @@ public interface UserService {
 
     HttpHeaders getJwtHeader(UserPrincipal userPrincipal);
 
-//    UserDomain register(UserDomain toDomain) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException;
-
-//    void authenticate(String username, String password);
-
-//    UserDomain add(UserDomain userDomain);
-//
-//    UserDomain update(UserDomain userDomain);
-
-//    UserDomain get(Long id);
-//
     List<UserDomain> getAll();
+
+    UserDomain login(UserDomain userDomain);
 }

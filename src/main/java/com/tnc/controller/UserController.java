@@ -42,21 +42,12 @@ public class UserController extends ExceptionHandling {
     public static final String USER_DELETED_SUCCESSFULLY = "User deleted successfully. ";
     private final UserService userService;
     private final UserDTOMapper userDTOMapper;
-    private final UserDomainMapper userDomainMapper;
-    private final AuthenticationManager authenticationManager;
+
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDTO userDTO) {
-        authenticate(userDTO.username(), userDTO.password());
-        User loginUser = userDomainMapper.toEntity(userDTOMapper.toDomain(userDTOMapper.toDTO(userService.findByUsername(userDTO.username()))));
-        UserPrincipal userPrincipal = new UserPrincipal(loginUser);
-//        UserPrincipal userPrincipal = userService.returnForLoginMethod(userDTOMapper.toDomain(loginUser));
-        HttpHeaders jwtHeader = userService.getJwtHeader(userPrincipal);
-        return new ResponseEntity<>(loginUser, jwtHeader, OK);
-    }
-
-    public void authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
+        userDTO = userDTOMapper.toDTO(userService.login(userDTOMapper.toDomain(userDTO)));
+        return new ResponseEntity(userDTO, OK);
     }
 
     @PostMapping("/register")

@@ -16,8 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.tnc.service.constant.SecurityConstant.*;
-import static org.springframework.security.config.http.SessionCreationPolicy.*;
+import static com.tnc.service.constant.SecurityConstant.PUBLIC_URLS;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +39,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors()
+        http
+                .csrf().disable()
+                .cors()
                 .and().sessionManagement().sessionCreationPolicy(STATELESS)
                 .and().authorizeRequests().antMatchers(PUBLIC_URLS).permitAll()
                 .anyRequest().authenticated()
@@ -50,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 }

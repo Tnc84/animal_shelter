@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -66,7 +67,7 @@ public class UserController extends ExceptionHandling {
                                               @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws IOException {
         var newUser = userService.addNewUser(firstName, lastName, username, email, role,
                 Boolean.parseBoolean(isNotLocked), Boolean.parseBoolean(isActive), profileImage);
-        return ResponseEntity.ok(userDTOMapper.toDTO(newUser));
+        return new ResponseEntity<>(userDTOMapper.toDTO(newUser), OK);
     }
 
     @PostMapping("/update")
@@ -82,7 +83,7 @@ public class UserController extends ExceptionHandling {
                                               @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, EmailExistException, IOException, UsernameExistException {
         var updateUser = userService.updateUser(currentUsername, firstName, lastName, username, email, role,
                 Boolean.parseBoolean(isNotLocked), Boolean.parseBoolean(isActive), profileImage);
-        return ResponseEntity.ok(userDTOMapper.toDTO(updateUser));
+        return new ResponseEntity<>(userDTOMapper.toDTO(updateUser), OK);
     }
 
     @GetMapping("/find/{username}")

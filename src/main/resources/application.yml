@@ -1,6 +1,6 @@
 
 jwt:
-  secret: 'password'
+  secret: password
 
 server:
   port : 8090

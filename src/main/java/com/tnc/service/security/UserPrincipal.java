@@ -1,6 +1,5 @@
 package com.tnc.service.security;
 
-import com.tnc.repository.entities.User;
 import com.tnc.service.domain.UserDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

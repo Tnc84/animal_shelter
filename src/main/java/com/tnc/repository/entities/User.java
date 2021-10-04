@@ -29,9 +29,9 @@ public class User implements Serializable {
 //        @Pattern(message = "Must contain only letters.", regexp = "A-Z, a-z")
     private String firstName;
     private String lastName;
-    @Column(nullable = false, unique = true)
+//    @Column(nullable = false, unique = true)
     private String username;
-    @Column(nullable = false, unique = true)
+//    @Column(nullable = false, unique = true)
     private String email;
     @Pattern(message = "Must contains only digits.", regexp = "0-9")
     private String phone;

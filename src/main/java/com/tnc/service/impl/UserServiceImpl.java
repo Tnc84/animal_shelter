@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDomain.setNotLocked(true);
         userDomain.setRole(ROLE_USER.name());
         userDomain.setAuthorities(ROLE_USER.getAuthorities());
-        userDomain.setProfileImageUrl(getTemporaryProfileImageUrl(userDomain.getUsername()));
+        userDomain.setProfileImageUrl(getTemporaryProfileImageUrl(username));
         userRepository.save(userDomainMapper.toEntity(userDomain));
         LOGGER.info("New userDomain password " + password);//this line must be removed
 //        emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
@@ -173,6 +173,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public List<UserDomain> getAll() {
+        return userDomainMapper.toDomainList(userRepository.findAll());
+    }
+
+    @Override
     public UserDomain findByUsername(String username) {
         return userDomainMapper.toDomain(userRepository.findUserByUsername(username));
     }
@@ -187,20 +192,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //        return userDomainMapper.toDomain(userRepository.getById(id));
 //    }
 //
-    @Override
-    public List<UserDomain> getAll() {
-        return userDomainMapper.toDomainList(userRepository.findAll());
-    }
-//
-//    @Override
-//    public UserDomain add(UserDomain userDomain) {
-//        return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
-//    }
-//
-//    @Override
-//    public UserDomain update(UserDomain userDomain) {
-//        return userDomainMapper.toDomain(userRepository.save(userDomainMapper.toEntity(userDomain)));
-//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -250,7 +241,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private void saveProfileImage(UserDomain userDomain, MultipartFile profileImage) throws IOException {
         if (profileImage != null) {
             Path userFolder = Paths.get(USER_FOLDER + userDomain.getUsername()).toAbsolutePath().normalize();
-            if (Files.exists(userFolder)) {
+            if (!Files.exists(userFolder)) {
                 Files.createDirectories(userFolder);
                 LOGGER.info(DIRECTORY_CREATED + userFolder);
             }
@@ -263,7 +254,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     private String setProfileImageUrl(String username) {
-        return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_IMAGE_PATH + username + FORWARD_SLASH + username + DOT + JPG_EXTENSION).toUriString();
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path(
+                USER_IMAGE_PATH + username + FORWARD_SLASH + username +
+                        DOT + JPG_EXTENSION).toUriString();
     }
 
     private Role getRoleEnumName(String role) {

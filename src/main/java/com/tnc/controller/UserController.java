@@ -89,13 +89,13 @@ public class UserController extends ExceptionHandling {
     @GetMapping("/find/{username}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("username") String username) {
         var userDomain = userService.findByUsername(username);
-        return ResponseEntity.ok(userDTOMapper.toDTO(userDomain));
+        return new ResponseEntity<>(userDTOMapper.toDTO(userDomain), OK);
     }
 
     @GetMapping("/list")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userDTOMapper.toDTOList(userService.getAll());
-        return ResponseEntity.ok(users);
+        return new ResponseEntity<>(users, OK);
     }
 
     @GetMapping("/resetPassword/{email}")
@@ -142,27 +142,4 @@ public class UserController extends ExceptionHandling {
                 message.toUpperCase());
         return new ResponseEntity<>(body, httpStatus);
     }
-
-//    @GetMapping(value = "/{id}")
-//    public ResponseEntity<UserDTO> get(@PathVariable Long id) {
-//        return ResponseEntity.ok(userDTOMapper.toDTO(userService.get(id)));
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity<List<UserDTO>> getAll() {
-//        return ResponseEntity.ok(userDTOMapper.toDTOList(userService.getAll()));
-//    }
-//
-//    @PostMapping
-//    @Validated(OnCreate.class)
-//    public ResponseEntity<UserDTO> add(@Valid @RequestBody UserDTO userDTO) {
-//        return ResponseEntity.ok(userDTOMapper.toDTO(userService.add(userDTOMapper.toDomain(userDTO))));
-//    }
-//
-//    @PutMapping
-//    @Validated(OnUpdate.class)
-////    @PreAuthorize("principal.username.startsWith('animal')")
-//    public ResponseEntity<UserDTO> update(@Valid @RequestBody UserDTO userDTO) {
-//        return ResponseEntity.ok(userDTOMapper.toDTO(userService.add(userDTOMapper.toDomain(userDTO))));
-//    }
 }

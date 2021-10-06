@@ -85,7 +85,12 @@
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.2</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.tnc</groupId>
+            <artifactId>animal_shelter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

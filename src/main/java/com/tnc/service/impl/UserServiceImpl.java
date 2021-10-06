@@ -9,7 +9,6 @@ import com.tnc.service.exception.UserNotFoundException;
 import com.tnc.service.exception.UsernameExistException;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.mapper.UserDomainMapper;
-import com.tnc.service.security.PasswordEncoder;
 import com.tnc.service.security.UserPrincipal;
 import com.tnc.service.security.preventBroteForceAttack.LoginAttemptService;
 import com.tnc.service.security.util.JWTTokenProvider;
@@ -26,6 +25,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserDomainMapper userDomainMapper;
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired // field or setter injection for avoid circular dependencies
     private AuthenticationManager authenticationManager;
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDomain.setProfileImageUrl(getTemporaryProfileImageUrl(username));
         userRepository.save(userDomainMapper.toEntity(userDomain));
         LOGGER.info("New userDomain password " + password);//this line must be removed
-//        emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
+        emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
         return userDomain;
     }
 
@@ -187,11 +187,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDomainMapper.toDomain(userRepository.findUserByEmail(email));
     }
 
-    //    @Override
+//    @Override
 //    public UserDomain get(Long id) {
 //        return userDomainMapper.toDomain(userRepository.getById(id));
 //    }
-//
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

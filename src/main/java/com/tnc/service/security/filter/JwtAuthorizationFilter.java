@@ -15,14 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.tnc.service.security.constant.SecurityConstant.OPTIONS_HTTP_METHOD;
-import static com.tnc.service.security.constant.SecurityConstant.TOKEN_PREFIX;
+import static com.tnc.service.constant.SecurityConstant.OPTIONS_HTTP_METHOD;
+import static com.tnc.service.constant.SecurityConstant.TOKEN_PREFIX;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
-    private JWTTokenProvider jwtTokenProvider;
+    private final JWTTokenProvider jwtTokenProvider;
 
     public JwtAuthorizationFilter(JWTTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;

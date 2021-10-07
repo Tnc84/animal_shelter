@@ -1,4 +1,4 @@
-package com.tnc.repository.repositories;
+package com.tnc.repository.interfaces;
 
 import com.tnc.repository.entities.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;

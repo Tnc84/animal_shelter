@@ -20,7 +20,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.tnc.service.security.constant.SecurityConstant.*;
+import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+import static com.tnc.service.constant.SecurityConstant.*;
 import static java.util.Arrays.stream;
 
 @Component
@@ -37,7 +38,7 @@ public class JWTTokenProvider {
                 .withSubject(userPrincipal.getUsername())
                 .withArrayClaim(AUTHORITIES, claims)
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(Algorithm.HMAC512(secret.getBytes()));
+                .sign(HMAC512(secret.getBytes()));
     }
 
     public List<GrantedAuthority> getAuthorities(String token) {
@@ -76,7 +77,7 @@ public class JWTTokenProvider {
     private JWTVerifier getJWTVerifier() {
         JWTVerifier verifier;
         try {
-            Algorithm algorithm = Algorithm.HMAC512(secret);
+            Algorithm algorithm = HMAC512(secret);
             verifier = JWT.require(algorithm).withIssuer(GET_ARRAYS_LLC).build();
         } catch (JWTVerificationException exception) {
             throw new JWTVerificationException(TOKEN_CANNOT_BE_VERIFIED);

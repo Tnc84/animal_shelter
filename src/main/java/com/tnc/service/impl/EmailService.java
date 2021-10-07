@@ -11,16 +11,16 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
-import static com.tnc.service.security.constant.EmailConstant.*;
-import static javax.mail.Message.*;
-import static javax.mail.Message.RecipientType.*;
+import static com.tnc.service.constant.EmailConstant.*;
+import static javax.mail.Message.RecipientType.CC;
+import static javax.mail.Message.RecipientType.TO;
 
 @Service
 public class EmailService {
 
     public void sendNewPasswordEmail(String firstname, String password, String email) throws MessagingException {
         Message message = createEmail(firstname, password, email);
-        SMTPTransport smtpTransport = (SMTPTransport)getEmailSession().getTransport(SIMPLE_EMAIL_TRANSPORT_PROTOCOL);
+        SMTPTransport smtpTransport = (SMTPTransport) getEmailSession().getTransport(SIMPLE_EMAIL_TRANSPORT_PROTOCOL);
         smtpTransport.connect(GMAIL_SMTP_SERVER, USERNAME, PASSWORD);
         smtpTransport.sendMessage(message, message.getAllRecipients());
         smtpTransport.close();

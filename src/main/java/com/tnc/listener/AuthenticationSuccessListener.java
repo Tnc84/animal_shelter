@@ -1,6 +1,6 @@
 package com.tnc.listener;
 
-import com.tnc.service.preventBroteForceAttack.LoginAttemptService;
+import com.tnc.service.security.preventBroteForceAttack.LoginAttemptService;
 import com.tnc.service.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;

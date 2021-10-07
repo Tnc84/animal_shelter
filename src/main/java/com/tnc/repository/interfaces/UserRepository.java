@@ -1,13 +1,14 @@
-package com.tnc.repository.repositories;
+package com.tnc.repository.interfaces;
 
 import com.tnc.repository.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-        User findUserByUsername(String username);
-        User findByEmail(String email);
+
+    User findUserByUsername(String username);
+
+    User findUserByEmail(String email);
+
 }

@@ -1,4 +1,4 @@
-package com.tnc.service.preventBroteForceAttack;
+package com.tnc.service.security.preventBroteForceAttack;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

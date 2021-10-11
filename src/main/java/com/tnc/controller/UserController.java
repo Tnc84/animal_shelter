@@ -32,7 +32,6 @@ import static org.springframework.util.MimeTypeUtils.IMAGE_JPEG_VALUE;
 @RequestMapping(path = {"/", "/user"})
 @AllArgsConstructor
 //@CrossOrigin("http://localhost:4200")
-//@CrossOrigin("http://localhost:8090")
 //@PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
 public class UserController extends ExceptionHandling {
 

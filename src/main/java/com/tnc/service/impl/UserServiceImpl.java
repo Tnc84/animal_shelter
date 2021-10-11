@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDomain.setProfileImageUrl(getTemporaryProfileImageUrl(username));
         userRepository.save(userDomainMapper.toEntity(userDomain));
         LOGGER.info("New userDomain password " + password);//this line must be removed
-        emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
+//        emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
         return userDomain;
     }
 

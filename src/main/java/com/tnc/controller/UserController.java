@@ -118,10 +118,10 @@ public class UserController extends ExceptionHandling {
         return new ResponseEntity<>(userDto, OK);
     }
 
-    @GetMapping(path = "/image/{username}/{fileName}", produces = IMAGE_JPEG_VALUE)
-    public byte[] getProfileImage(@PathVariable("username") String username, @PathVariable("fileName") String fileName) throws IOException {
-        return Files.readAllBytes(Paths.get(USER_FOLDER + username + FORWARD_SLASH + fileName));
-    }
+//    @GetMapping(path = "/image/{username}/{fileName}", produces = IMAGE_JPEG_VALUE)
+//    public byte[] getProfileImage(@PathVariable("username") String username, @PathVariable("fileName") String fileName) throws IOException {
+//        return Files.readAllBytes(Paths.get(USER_FOLDER + username + FORWARD_SLASH + fileName));
+//    }
 
     @GetMapping(path = "/image/{profile}/{username}", produces = IMAGE_JPEG_VALUE)
     public byte[] getTemporaryProfileImage(@PathVariable("username") String username) throws IOException {

@@ -1,11 +1,15 @@
 package com.tnc.repository.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
@@ -20,6 +24,8 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Positive(message = "Must be positive number")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonIgnore
     private Long id;
     private String userId;
     //        @NotBlank(message = "This field cannot be empty")
@@ -29,12 +35,13 @@ public class User implements Serializable {
 //        @Pattern(message = "Must contain only letters.", regexp = "A-Z, a-z")
     private String firstName;
     private String lastName;
-//    @Column(nullable = false, unique = true)
+    //    @Column(nullable = false, unique = true)
     private String username;
-//    @Column(nullable = false, unique = true)
+    //    @Column(nullable = false, unique = true)
     private String email;
     @Pattern(message = "Must contains only digits.", regexp = "0-9")
     private String phone;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String profileImageUrl;
     private Date lastLoginDate;

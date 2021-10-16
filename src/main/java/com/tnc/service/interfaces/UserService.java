@@ -23,11 +23,13 @@ public interface UserService {
 
     UserDomain findByEmail(String email);
 
-    UserDomain addNewUser(String firstName, String laseName, String username, String email, String role, boolean isActive, boolean isNotActive, MultipartFile profileImage) throws IOException;
+    UserDomain addNewUser(String firstName, String laseName, String username, String email, String role,
+                          boolean isActive, boolean isNotActive,
+                          MultipartFile profileImage) throws IOException;
 
     UserDomain updateUser(String currentUsername, String newFirstName, String newLaseName, String newUsername, String newEmail, String role, boolean isActive, boolean isNotActive, MultipartFile profileImage) throws UserNotFoundException, EmailExistException, UsernameExistException, IOException;
 
-    void deleteUser(Long id);
+    void deleteUser(String username) throws IOException;
 
     void resetPassword(String email) throws MessagingException, EmailNotFoundException;
 

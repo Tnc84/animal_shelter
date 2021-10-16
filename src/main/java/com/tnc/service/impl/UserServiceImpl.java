@@ -15,6 +15,8 @@ import com.tnc.service.security.util.JWTTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -106,12 +109,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDomain.setProfileImageUrl(getTemporaryProfileImageUrl(username));
         userRepository.save(userDomainMapper.toEntity(userDomain));
         LOGGER.info("New userDomain password " + password);//this line must be removed
-//        emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
+//        emailService.sendNewPasswordEmail(userDomain.getFirstName(), userDomain.getPassword(), userDomain.getEmail());
+        emailService.sendNewPasswordEmail(firstName, password, email);
         return userDomain;
     }
 
     @Override
-    public UserDomain addNewUser(String firstName, String laseName, String username, String email, String role, boolean isActive, boolean isNotActive, MultipartFile profileImage) throws IOException {
+    public UserDomain addNewUser(String firstName, String laseName, String username, String email, String role,
+                                 boolean isActive, boolean isNotActive,
+                                 MultipartFile profileImage) throws IOException {
         var userDomain = new UserDomain();
         String password = generatePassword();
         userDomain.setUserId(generateUserId());
@@ -128,6 +134,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDomain.setProfileImageUrl(getTemporaryProfileImageUrl(username));
         userRepository.save(userDomainMapper.toEntity(userDomain));
         saveProfileImage(userDomain, profileImage);
+        LOGGER.info("New userDomain password " + password);//this line must be removed
         return userDomain;
     }
 
@@ -149,8 +156,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUser(String username) throws IOException {
+        var user = userRepository.findUserByUsername(username);
+        Path userFolder = Paths.get(USER_FOLDER + user.getUsername()).toAbsolutePath().normalize();
+        FileUtils.deleteDirectory(new File(userFolder.toString()));
+        userRepository.deleteByUsername(username);
     }
 
     @Override
@@ -161,6 +171,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         String password = generatePassword();
         userDomain.setPassword(encodePassword(password));
+        LOGGER.info("New userDomain password " + password);//this line must be removed
         userRepository.save(userDomainMapper.toEntity(userDomain));
         emailService.sendNewPasswordEmail(userDomain.getFirstName(), password, userDomain.getEmail());
     }
@@ -191,7 +202,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 //    public UserDomain get(Long id) {
 //        return userDomainMapper.toDomain(userRepository.getById(id));
 //    }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -6,11 +6,14 @@ import com.tnc.service.domain.HttpResponse;
 import com.tnc.service.exception.*;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.security.UserPrincipal;
+import com.tnc.service.validation.OnCreate;
+import com.tnc.service.validation.OnUpdate;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,6 +45,7 @@ public class UserController extends ExceptionHandling {
 
 
     @PostMapping("/login")
+    @Validated(OnCreate.class)
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
         var loginUser = userService.login(userDTOMapper.toDomain(userDTO));
         UserPrincipal userPrincipal = new UserPrincipal(loginUser);
@@ -50,13 +54,14 @@ public class UserController extends ExceptionHandling {
     }
 
     @PostMapping("/register")
+    @Validated(OnCreate.class)
     public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException {
         var user = userDTOMapper.toDTO(userService.register(userDTO.firstName(), userDTO.lastName(), userDTO.username(), userDTO.email()));
         return new ResponseEntity<>(user, OK);
     }
 
     @PostMapping("/add")
-//    @Validated(OnCreate.class)
+    @Validated(OnCreate.class)
     public ResponseEntity<UserDTO> addNewUser(@RequestParam("firstName") String firstName,
                                               @RequestParam("lastName") String lastName,
                                               @RequestParam("username") String username,
@@ -70,8 +75,8 @@ public class UserController extends ExceptionHandling {
         return new ResponseEntity<>(userDTOMapper.toDTO(newUser), OK);
     }
 
-    @PostMapping("/update")
-//    @Validated(OnCreate.class)
+    @PutMapping("/update")
+    @Validated(OnUpdate.class)
     public ResponseEntity<UserDTO> updateUser(@RequestParam("currentUsername") String currentUsername,
                                               @RequestParam("firstName") String firstName,
                                               @RequestParam("lastName") String lastName,
@@ -111,7 +116,7 @@ public class UserController extends ExceptionHandling {
         return response(NO_CONTENT, USER_DELETED_SUCCESSFULLY);
     }
 
-    @PostMapping("/updateProfileImage")
+    @PutMapping("/updateProfileImage")
     public ResponseEntity<UserDTO> updateProfileImage(@RequestParam("username") String username,
                                                       @RequestParam(value = "profileImage") MultipartFile profileImage) throws UserNotFoundException, EmailExistException, IOException, UsernameExistException {
         var userDto = userDTOMapper.toDTO(userService.updateProfileImage(username, profileImage));

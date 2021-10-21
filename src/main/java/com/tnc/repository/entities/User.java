@@ -41,7 +41,7 @@ public class User implements Serializable {
     private String username;
     @Column(nullable = false, unique = true)
     private String email;
-    @Pattern(message = "Must contains only digits.", regexp = "0-9")
+    @Pattern(message = "Must contains only digits.", regexp = "\"^(\\\\+\\\\d{1,3}( )?)?((\\\\(\\\\d{1,3}\\\\))|\\\\d{1,3})[- .]?\\\\d{3,4}[- .]?\\\\d{4}$\"")
     private String phone;
     private String password;
     private String profileImageUrl;

@@ -12,9 +12,9 @@ import javax.validation.constraints.*;
 @Data
 public class Animal {
 
-    @Positive(message = "Must be positive number")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Positive(message = "Must be positive number")
     private Long id;
     @NotBlank(message = "This field cannot be blank")
     @NotEmpty(message = "This field must not be empty.")

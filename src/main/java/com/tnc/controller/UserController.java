@@ -6,11 +6,14 @@ import com.tnc.service.domain.HttpResponse;
 import com.tnc.service.exception.*;
 import com.tnc.service.interfaces.UserService;
 import com.tnc.service.security.UserPrincipal;
+import com.tnc.service.validation.OnCreate;
+import com.tnc.service.validation.OnUpdate;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +34,6 @@ import static org.springframework.util.MimeTypeUtils.IMAGE_JPEG_VALUE;
 @RestController
 @RequestMapping(path = {"/", "/user"})
 @AllArgsConstructor
-//@CrossOrigin("http://localhost:4200")
 //@PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
 public class UserController extends ExceptionHandling {
 
@@ -56,7 +58,7 @@ public class UserController extends ExceptionHandling {
     }
 
     @PostMapping("/add")
-//    @Validated(OnCreate.class)
+    @Validated(OnCreate.class)
     public ResponseEntity<UserDTO> addNewUser(@RequestParam("firstName") String firstName,
                                               @RequestParam("lastName") String lastName,
                                               @RequestParam("username") String username,
@@ -71,7 +73,7 @@ public class UserController extends ExceptionHandling {
     }
 
     @PostMapping("/update")
-//    @Validated(OnCreate.class)
+    @Validated(OnUpdate.class)
     public ResponseEntity<UserDTO> updateUser(@RequestParam("currentUsername") String currentUsername,
                                               @RequestParam("firstName") String firstName,
                                               @RequestParam("lastName") String lastName,
@@ -118,7 +120,7 @@ public class UserController extends ExceptionHandling {
         return new ResponseEntity<>(userDto, OK);
     }
 
-    @GetMapping(path = "/image/{username}/{fileName}", produces = IMAGE_JPEG_VALUE)
+//    @GetMapping(path = "/image/{username}/{fileName}", produces = IMAGE_JPEG_VALUE)
     public byte[] getProfileImage(@PathVariable("username") String username, @PathVariable("fileName") String fileName) throws IOException {
         return Files.readAllBytes(Paths.get(USER_FOLDER + username + FORWARD_SLASH + fileName));
     }

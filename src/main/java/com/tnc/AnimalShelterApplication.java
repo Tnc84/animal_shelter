@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.io.File;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import static com.tnc.service.constant.FileConstant.USER_FOLDER;
 
 @SpringBootApplication
+@EnableSwagger2
 public class AnimalShelterApplication {
 
     public static void main(String[] args) {

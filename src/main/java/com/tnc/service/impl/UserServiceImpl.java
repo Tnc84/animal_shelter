@@ -1,7 +1,7 @@
 package com.tnc.service.impl;
 
 import com.tnc.repository.interfaces.UserRepository;
-import com.tnc.service.domain.Role;
+import com.tnc.service.domain.RoleEnum;
 import com.tnc.service.domain.UserDomain;
 import com.tnc.service.exception.EmailExistException;
 import com.tnc.service.exception.EmailNotFoundException;
@@ -42,8 +42,8 @@ import java.util.List;
 import static com.tnc.service.constant.FileConstant.*;
 import static com.tnc.service.constant.SecurityConstant.JWT_TOKEN_HEADER;
 import static com.tnc.service.constant.UserImplConstant.*;
-import static com.tnc.service.domain.Role.ROLE_USER;
-import static com.tnc.service.domain.Role.valueOf;
+import static com.tnc.service.domain.RoleEnum.ROLE_USER;
+import static com.tnc.service.domain.RoleEnum.valueOf;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
@@ -130,6 +130,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         saveProfileImage(userDomain, profileImage);
         return userDomain;
     }
+
+
 
     @Override
     public UserDomain updateUser(String currentUsername, String newFirstName, String newLaseName, String newUsername, String newEmail, String role, boolean isActive, boolean isNotActive, MultipartFile profileImage) throws UserNotFoundException, EmailExistException, UsernameExistException, IOException {
@@ -259,7 +261,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                         DOT + JPG_EXTENSION).toUriString();
     }
 
-    private Role getRoleEnumName(String role) {
+    private RoleEnum getRoleEnumName(String role) {
         return valueOf(role.toUpperCase());
     }
 

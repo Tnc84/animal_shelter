@@ -1,13 +1,9 @@
 package com.tnc.service.domain;
 
-import lombok.*;
-import lombok.experimental.Accessors;
-import org.hibernate.validator.constraints.Length;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Getter

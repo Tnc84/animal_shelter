@@ -61,7 +61,7 @@ public class UserController extends ExceptionHandling {
     }
 
     @PostMapping("/add")
-    @Validated(OnCreate.class)
+//    @Validated(OnCreate.class)
     public ResponseEntity<UserDTO> addNewUser(@RequestParam("firstName") String firstName,
                                               @RequestParam("lastName") String lastName,
                                               @RequestParam("username") String username,

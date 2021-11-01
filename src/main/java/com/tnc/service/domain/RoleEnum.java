@@ -2,7 +2,7 @@ package com.tnc.service.domain;
 
 import static com.tnc.service.constant.Authority.*;
 
-public enum Role {
+public enum RoleEnum {
     ROLE_USER(USER_AUTHORITIES),
     ROLE_HR(HR_AUTHORITIES),
     ROLE_MANAGER(MANAGER_AUTHORITIES),
@@ -11,7 +11,7 @@ public enum Role {
 
     private String[] authorities;
 
-    Role(String... authorities){
+    RoleEnum(String... authorities){
         this.authorities = authorities;
     }
 

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping(value = "/shelters")
+@RequestMapping(value = "/animal-shelter/shelters")
 @RestController
 @RequiredArgsConstructor
 @Validated

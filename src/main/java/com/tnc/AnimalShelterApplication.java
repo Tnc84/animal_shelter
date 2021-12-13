@@ -2,6 +2,7 @@ package com.tnc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import static com.tnc.service.constant.FileConstant.USER_FOLDER;
 
 @SpringBootApplication
+@EnableFeignClients
 public class AnimalShelterApplication {
 
     public static void main(String[] args) {

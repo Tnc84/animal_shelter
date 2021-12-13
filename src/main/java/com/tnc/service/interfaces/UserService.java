@@ -33,7 +33,7 @@ public interface UserService {
 
     UserDomain updateProfileImage(String username, MultipartFile profileImage) throws UserNotFoundException, EmailExistException, UsernameExistException, IOException;
 
-    UserPrincipal returnForLoginMethod(UserDomain userDomain);
+//    UserPrincipal returnForLoginMethod(UserDomain userDomain);
 
     HttpHeaders getJwtHeader(UserPrincipal userPrincipal);
 

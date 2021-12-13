@@ -9,7 +9,7 @@ public enum RoleEnum {
     ROLE_ADMIN(ADMIN_AUTHORITIES),
     ROLE_SUPER_USER(SUPER_ADMIN_AUTHORITIES);
 
-    private String[] authorities;
+    private final String[] authorities;
 
     RoleEnum(String... authorities){
         this.authorities = authorities;

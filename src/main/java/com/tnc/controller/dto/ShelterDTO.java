@@ -22,6 +22,7 @@ public record ShelterDTO(
         String city,
         @NotNull
         @NotBlank
-        List<AnimalDTO> animals
+        List<AnimalDTO> animals,
+        String environment
 ){
 }

@@ -14,5 +14,6 @@ public class ShelterDomain {
     private String name;
     private String city;
     private List<AnimalDomain> animals = new ArrayList<>();
+    private String environment;
 
 }

@@ -38,7 +38,7 @@ import static org.springframework.util.MimeTypeUtils.IMAGE_JPEG_VALUE;
 //@PreAuthorize("isAuthenticated() && hasRole('ADMIN')")
 public class UserController extends ExceptionHandling {
 
-    public static final String EMAIL_SENT = "An email with a new password eas sent to: ";
+    public static final String EMAIL_SENT = "An email with a new password was sent to: ";
     public static final String USER_DELETED_SUCCESSFULLY = "User deleted successfully. ";
     private final UserService userService;
     private final UserDTOMapper userDTOMapper;

@@ -6,6 +6,7 @@ import com.tnc.service.interfaces.ShelterService;
 import com.tnc.service.mapper.ShelterDomainMapper;
 import com.tnc.service.domain.ShelterDomain;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class ShelterServiceImpl implements ShelterService {
 
     private final ShelterRepository shelterRepository;
     private final ShelterDomainMapper shelterDomainMapper;
+    private final Environment environment;
 
     @Override
     public ShelterDomain get(Long id) {
@@ -33,6 +35,8 @@ public class ShelterServiceImpl implements ShelterService {
 //        ValidateShelter.validateShelter(shelterDomain);
 //        validateShelter(shelterDomain);
         var addShelter = shelterDomainMapper.toEntity(shelterDomain);
+        String port = environment.getProperty("local.port.name");
+        addShelter.setEnvironment(port);
         return shelterDomainMapper.toDomain(shelterRepository.save(addShelter));
     }
 

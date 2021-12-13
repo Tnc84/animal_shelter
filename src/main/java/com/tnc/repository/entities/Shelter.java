@@ -35,6 +35,8 @@ public class Shelter {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "shelter_id")
     private List<Animal> animals = new ArrayList<>();
+
+    private String environment;
 }
 
 

@@ -76,10 +76,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
     }
 
-    public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
-        var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
-        return new UserPrincipal(loginUser);
-    }
+//    public UserPrincipal returnForLoginMethod(UserDomain userDomain) {
+//        var loginUser = userDomainMapper.toDomain(userRepository.findUserByUsername(userDomain.getUsername()));
+//        return new UserPrincipal(loginUser);
+//    }
 
     public HttpHeaders getJwtHeader(UserPrincipal userPrincipal) {
         HttpHeaders headers = new HttpHeaders();
@@ -111,12 +111,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDomain addNewUser(String firstName, String laseName, String username, String email, String role, boolean isActive, boolean isNotActive, MultipartFile profileImage) throws IOException {
+    public UserDomain addNewUser(String firstName, String lastName, String username, String email, String role, boolean isActive, boolean isNotActive, MultipartFile profileImage) throws IOException {
         var userDomain = new UserDomain();
         String password = generatePassword();
         userDomain.setUserId(generateUserId());
         userDomain.setFirstName(firstName);
-        userDomain.setLastName(laseName);
+        userDomain.setLastName(lastName);
         userDomain.setJoinDate(new Date());
         userDomain.setUsername(username);
         userDomain.setEmail(email);
